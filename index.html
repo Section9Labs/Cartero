@@ -1,36 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Cartero : Mailing Phishing Framework" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Cartero by Section9Labs</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Cartero</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1>Cartero</h1>
+        <p>Mailing Phishing Framework</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/Section9Labs/Cartero">View on GitHub</a>
+        <p class="view"><a href="https://github.com/Section9Labs/Cartero">View the Project on GitHub <small>Section9Labs/Cartero</small></a></p>
 
-          <h1 id="project_title">Cartero</h1>
-          <h2 id="project_tagline">Mailing Phishing Framework</h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/Section9Labs/Cartero/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/Section9Labs/Cartero/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+        <ul>
+          <li><a href="https://github.com/Section9Labs/Cartero/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Section9Labs/Cartero/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Section9Labs/Cartero">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
         <h1>
 <a name="cartero" class="anchor" href="#cartero"><span class="octicon octicon-link"></span></a>Cartero</h1>
 
@@ -43,25 +40,25 @@
 
 <p>For example, if we wanted to clone gmail.com, we simply have to perform the following commands. </p>
 
-<pre lang="shell"><code>❯❯❯ ./cartero Cloner --url https://gmail.com --path /tmp --webserver gmail_com
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Cloner --url https://gmail.com --path /tmp --webserver gmail_com
 ❯❯❯ ./cartero Listener --webserver /tmp/gmail_com -p 80
 Launching mongodb
 Puma starting in single mode...
-* Version 2.8.2 (ruby 2.1.1-p76), codename: Sir Edmund Percival Hillary
+* Version 2.8.2 <span class="o">(</span>ruby 2.1.1-p76<span class="o">)</span>, codename: Sir Edmund Percival Hillary
 * Min threads: 4, max threads: 16
 * Environment: production
 * Listening on tcp://0.0.0.0:80
 Use Ctrl-C to stop
-</code></pre>
+</pre></div>
 
 <p>Once we have a site up and running we can simply use the Mailer command to send templated emails to our testing victims:</p>
 
-<pre lang="shell"><code>❯❯❯ ./cartero Mailer --data victims.json --server gmail2 --subject "Internal Memo" --htmlbody email_html.html --attachment payload.pdf --from "John Doe &lt;jdoe@company.com&gt;"
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Mailer --data victims.json --server gmail2 --subject <span class="s2">"Internal Memo"</span> --htmlbody email_html.html --attachment payload.pdf --from <span class="s2">"John Doe &lt;jdoe@company.com&gt;"</span>
 Sending victim1@company.com
 Sending victim2@company.com
 Sending victim3@company.com
 
-</code></pre>
+</pre></div>
 
 <h3>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h3>
@@ -69,18 +66,18 @@ Sending victim3@company.com
 <h4>
 <a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h4>
 
-<pre lang="shell"><code>❯❯❯ brew install mongodb
-</code></pre>
+<div class="highlight highlight-bash"><pre>❯❯❯ brew install mongodb
+</pre></div>
 
 <h4>
 <a name="framework" class="anchor" href="#framework"><span class="octicon octicon-link"></span></a>Framework</h4>
 
-<pre lang="shell"><code>❯❯❯ git clone github.com/section9labs/Cartero
-❯❯❯ cd Cartero
+<div class="highlight highlight-bash"><pre>❯❯❯ git clone github.com/section9labs/Cartero
+❯❯❯ <span class="nb">cd </span>Cartero
 ❯❯❯ gem install bundle
 ❯❯❯ bundle install
-❯❯❯ cd bin
-</code></pre>
+❯❯❯ <span class="nb">cd </span>bin
+</pre></div>
 
 <h3>
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
@@ -90,27 +87,27 @@ Sending victim3@company.com
 
 <p>Cartero is a very simple to use CLI.</p>
 
-<pre lang="shell"><code>❯❯❯ ./cartero
-Usage: cartero [options]
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero
+Usage: cartero <span class="o">[</span>options<span class="o">]</span>
 
 List of Commands:
     AdminConsole, AdminWeb, Mailer, Cloner, Listener, Servers, Templates
 
 Global options:
-        --proxy [HOST:PORT]          Sets TCPSocket Proxy server
-    -c, --config [CONFIG_FILE]       Provide a different cartero config file
-    -v, --[no-]verbose               Run verbosely
-    -p [PORT_1,PORT_2,..,PORT_N],    Global Flag fo Mailer and Webserver ports
+        --proxy <span class="o">[</span>HOST:PORT<span class="o">]</span>          Sets TCPSocket Proxy server
+    -c, --config <span class="o">[</span>CONFIG_FILE<span class="o">]</span>       Provide a different cartero config file
+    -v, --<span class="o">[</span>no-<span class="o">]</span>verbose               Run verbosely
+    -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Global Flag fo Mailer and Webserver ports
         --ports
-    -m, --mongodb [HOST:PORT]        Global Flag fo Mailer and Webserver ports
+    -m, --mongodb <span class="o">[</span>HOST:PORT<span class="o">]</span>        Global Flag fo Mailer and Webserver ports
     -d, --debug                      Sets debug flag on/off
-        --editor [EDITOR]            Edit Server
-        --list-commands              Prints list of commands for bash completion
+        --editor <span class="o">[</span>EDITOR<span class="o">]</span>            Edit Server
+        --list-commands              Prints list of commands <span class="k">for</span> bash completion
 
 Common options:
-    -h, --help [COMMAND]             Show this message
+    -h, --help <span class="o">[</span>COMMAND<span class="o">]</span>             Show this message
         --version                    Shows cartero CLI version
-</code></pre>
+</pre></div>
 
 <h3>
 <a name="basic-commands" class="anchor" href="#basic-commands"><span class="octicon octicon-link"></span></a>Basic Commands</h3>
@@ -121,17 +118,17 @@ Common options:
 <p>A simple WebSite Cloner. It allows us to download and convert a website into a Cartero WebServer application.
 In this way we can easily customize the website to Harvest Credentials, Server Payloads, or create a fully customized website.</p>
 
-<pre lang="shell"><code>❯❯❯ ./cartero Cloner
-Usage: Cartero Cloner [options]
-    -U, --url [URL_PATH]             Full Path of site to clone
-    -W, --webserver [SERVER_NAME]    Sets WebServer name to use
-    -p, --path [PATH]                Sets path to save webserver
-    -P, --payload [PAYLOAD_PATH]     Sets payload path
-        --useragent [UA_STRING]      Sets user agent for cloning
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Cloner
+Usage: Cartero Cloner <span class="o">[</span>options<span class="o">]</span>
+    -U, --url <span class="o">[</span>URL_PATH<span class="o">]</span>             Full Path of site to clone
+    -W, --webserver <span class="o">[</span>SERVER_NAME<span class="o">]</span>    Sets WebServer name to use
+    -p, --path <span class="o">[</span>PATH<span class="o">]</span>                Sets path to save webserver
+    -P, --payload <span class="o">[</span>PAYLOAD_PATH<span class="o">]</span>     Sets payload path
+        --useragent <span class="o">[</span>UA_STRING<span class="o">]</span>      Sets user agent <span class="k">for</span> cloning
         --wget                       Use wget to clone url
         --apache                     Generate Apache Proxy conf
     -h, --help                       Show this message
-</code></pre>
+</pre></div>
 
 <p>By default the command users our own internal system to download and convert links to render, but we also support a <em>--wget</em> option that will use wget system command.</p>
 
@@ -140,23 +137,23 @@ Usage: Cartero Cloner [options]
 
 <p>The listener is the system responsible of running the WebServer created through Cloner or manually. By default we also have a very simple WebServer if none is provided.</p>
 
-<pre lang="shell"><code>❯❯❯ ./cartero Listener
-Usage: Cartero Listener [options]
-    -i, --ip [1.1.1.1]               Sets IP interface, default is 0.0.0.0
-    -p [PORT_1,PORT_2,..,PORT_N],    Sets Email Payload Ports to scan
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Listener
+Usage: Cartero Listener <span class="o">[</span>options<span class="o">]</span>
+    -i, --ip <span class="o">[</span>1.1.1.1<span class="o">]</span>               Sets IP interface, default is 0.0.0.0
+    -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Sets Email Payload Ports to scan
         --ports
-    -s, --ssl                        Run over SSL. [this also requires --sslcert and --sslkey]
-    -C, --sslcert [CERT_PATH]        Sets Email Payload Ports to scan
-    -K, --sslkey [KEY_PATH]          Sets SSL key to use for Listener.
-    -V, --views [VIEWS_FOLDER]       Sets SSL Certificate to use for Listener.
-    -P, --public [PUBLIC_FOLDER]     Sets a Sinatra public_folder
-    -W [WEBSERVER_FOLDER],           Sets the sinatra full path from cloner.
+    -s, --ssl                        Run over SSL. <span class="o">[</span>this also requires --sslcert and --sslkey<span class="o">]</span>
+    -C, --sslcert <span class="o">[</span>CERT_PATH<span class="o">]</span>        Sets Email Payload Ports to scan
+    -K, --sslkey <span class="o">[</span>KEY_PATH<span class="o">]</span>          Sets SSL key to use <span class="k">for</span> Listener.
+    -V, --views <span class="o">[</span>VIEWS_FOLDER<span class="o">]</span>       Sets SSL Certificate to use <span class="k">for</span> Listener.
+    -P, --public <span class="o">[</span>PUBLIC_FOLDER<span class="o">]</span>     Sets a Sinatra public_folder
+    -W <span class="o">[</span>WEBSERVER_FOLDER<span class="o">]</span>,           Sets the sinatra full path from cloner.
         --webserver
-        --payload [PAYLOAD]          Sets a payload download to serve on /download
-        --customapp [CUSTOM_SINATRA] Sets a custom Sinatra::Base WebApp. Important, WebApp name should be camelized of filename
+        --payload <span class="o">[</span>PAYLOAD<span class="o">]</span>          Sets a payload download to serve on /download
+        --customapp <span class="o">[</span>CUSTOM_SINATRA<span class="o">]</span> Sets a custom Sinatra::Base WebApp. Important, WebApp name should be camelized of filename
     -h, --help                       Show this message
 
-</code></pre>
+</pre></div>
 
 <p>The WebServers support ssl keys, different public and view paths. Additionally the servers can also be hosted on multiple ports at the same time and they can be bind to a specific IP address as well.</p>
 
@@ -165,29 +162,29 @@ Usage: Cartero Listener [options]
 
 <p>In order to send emails campaigns we need to setup servers. This is a command that would help Cartero to create, store and list servers. All data is stored on .cartero configuration directory.</p>
 
-<pre lang="shell"><code>❯❯❯ ./cartero Servers
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Servers
 
-Usage: Cartero Servers [options]
-    -a, --add [NAME]                 Add Server
-    -e, --edit [NAME]                Edit Server
-    -d, --delete [NAME]              Edit Server
+Usage: Cartero Servers <span class="o">[</span>options<span class="o">]</span>
+    -a, --add <span class="o">[</span>NAME<span class="o">]</span>                 Add Server
+    -e, --edit <span class="o">[</span>NAME<span class="o">]</span>                Edit Server
+    -d, --delete <span class="o">[</span>NAME<span class="o">]</span>              Edit Server
     -l, --list                       List servers
     -h, --help                       Show this message
-</code></pre>
+</pre></div>
 
 <h4>
 <a name="templates" class="anchor" href="#templates"><span class="octicon octicon-link"></span></a>Templates</h4>
 
 <p>Just like Servers, email campaigns also need to send a body or html body. This will allow you to keep track, create, list and edit templates being used for each email. It is worth noting that this are not necessary to use and the Mailer command takes direct path to emails templates as well.</p>
 
-<pre lang="shell"><code>❯❯❯ ./cartero Templates
-Usage: Cartero Templates [options]
-    -a, --add [NAME]                 Add Template
-    -e, --edit [NAME]                Edit Template
-    -d, --delete [NAME]              Edit Template
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Templates
+Usage: Cartero Templates <span class="o">[</span>options<span class="o">]</span>
+    -a, --add <span class="o">[</span>NAME<span class="o">]</span>                 Add Template
+    -e, --edit <span class="o">[</span>NAME<span class="o">]</span>                Edit Template
+    -d, --delete <span class="o">[</span>NAME<span class="o">]</span>              Edit Template
     -l, --list                       List Templates
     -h, --help                       Show this message
-</code></pre>
+</pre></div>
 
 <h4>
 <a name="mailer" class="anchor" href="#mailer"><span class="octicon octicon-link"></span></a>Mailer</h4>
@@ -196,59 +193,59 @@ Usage: Cartero Templates [options]
 Each email can be customized using the powerful erb Template engine, allowing users to create complex programming within the templates and send massive, but yet very targeted emails.
 For more information on how to build custom templates, please refer to our Examples.</p>
 
-<pre lang="shell"><code>❯❯❯ ./cartero Mailer
-Usage: Cartero Mailer [options]
-    -D, --data [DATA_FILE]           File containing template data sets
-    -S, --server [SERVER_NAME]       Sets Email server to use
-    -s, --subject [EMAIL_SUBJECT]    Sets Email subject
-    -f, --from [EMAIL_FROM]          Sets Email from
-    -r, --reply-to [EMAIL_REPLY_TO]  Sets Email from
-    -b, --body [FILE_PATH]           Sets Email Text Body
-    -B, --htmlbody [FILE_PATH]       Sets Email HTML Body
-    -c, --charset [CHARSET]          Sets Email charset
-    -C [CONTENT_TYPE],               Sets Email content type
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Mailer
+Usage: Cartero Mailer <span class="o">[</span>options<span class="o">]</span>
+    -D, --data <span class="o">[</span>DATA_FILE<span class="o">]</span>           File containing template data sets
+    -S, --server <span class="o">[</span>SERVER_NAME<span class="o">]</span>       Sets Email server to use
+    -s, --subject <span class="o">[</span>EMAIL_SUBJECT<span class="o">]</span>    Sets Email subject
+    -f, --from <span class="o">[</span>EMAIL_FROM<span class="o">]</span>          Sets Email from
+    -r, --reply-to <span class="o">[</span>EMAIL_REPLY_TO<span class="o">]</span>  Sets Email from
+    -b, --body <span class="o">[</span>FILE_PATH<span class="o">]</span>           Sets Email Text Body
+    -B, --htmlbody <span class="o">[</span>FILE_PATH<span class="o">]</span>       Sets Email HTML Body
+    -c, --charset <span class="o">[</span>CHARSET<span class="o">]</span>          Sets Email charset
+    -C <span class="o">[</span>CONTENT_TYPE<span class="o">]</span>,               Sets Email content <span class="nb">type</span>
         --content-type
-    -a [FILE_1,FILE_2,..,FILE_N],    Sets Email Attachments
+    -a <span class="o">[</span>FILE_1,FILE_2,..,FILE_N<span class="o">]</span>,    Sets Email Attachments
         --attachment
-    -p [PORT_1,PORT_2,..,PORT_N],    Sets Email Payload Ports to scan
+    -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Sets Email Payload Ports to scan
         --ports
     -h, --help                       Show this message
-</code></pre>
+</pre></div>
 
 <h4>
 <a name="adminweb" class="anchor" href="#adminweb"><span class="octicon octicon-link"></span></a>AdminWeb</h4>
 
 <p>The Admin Web is a simple Web-Application that allows to list information about each Campaign.</p>
 
-<pre lang="shell"><code>❯❯❯ ./cartero AdminConsole
-Usage: Cartero AdminConsole [options]
-    -i, --ip [1.1.1.1]               Sets IP interface, default is 0.0.0.0
-    -p [PORT_1,PORT_2,..,PORT_N],    Sets Email Payload Ports to scan
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero AdminConsole
+Usage: Cartero AdminConsole <span class="o">[</span>options<span class="o">]</span>
+    -i, --ip <span class="o">[</span>1.1.1.1<span class="o">]</span>               Sets IP interface, default is 0.0.0.0
+    -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Sets Email Payload Ports to scan
         --ports
-    -s, --ssl                        Run over SSL. [this also requires --sslcert and --sslkey]
-    -C, --sslcert [CERT_PATH]        Sets Email Payload Ports to scan
-    -K, --sslkey [KEY_PATH]          Sets Email Payload Ports to scan
+    -s, --ssl                        Run over SSL. <span class="o">[</span>this also requires --sslcert and --sslkey<span class="o">]</span>
+    -C, --sslcert <span class="o">[</span>CERT_PATH<span class="o">]</span>        Sets Email Payload Ports to scan
+    -K, --sslkey <span class="o">[</span>KEY_PATH<span class="o">]</span>          Sets Email Payload Ports to scan
     -h, --help                       Show this message
-</code></pre>
+</pre></div>
 
 <h3>
 <a name="adminconsole" class="anchor" href="#adminconsole"><span class="octicon octicon-link"></span></a>AdminConsole</h3>
 
 <p>The Admin Console is CLI tool that allows to list information about Persons, Campaigns, Hits and Credentials gathered.  </p>
 
-<pre lang="shell"><code>❯❯❯ ./cartero AdminConsole
-Usage: Cartero AdminConsole [options]
-    -p, --persons [LATEST_N]         Display the list of persons that responded
-    -i, --hits [LATEST_N]            Display the list of hits
-    -c, --creds [LATEST_N]           Display the list of Credentials
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero AdminConsole
+Usage: Cartero AdminConsole <span class="o">[</span>options<span class="o">]</span>
+    -p, --persons <span class="o">[</span>LATEST_N<span class="o">]</span>         Display the list of persons that responded
+    -i, --hits <span class="o">[</span>LATEST_N<span class="o">]</span>            Display the list of hits
+    -c, --creds <span class="o">[</span>LATEST_N<span class="o">]</span>           Display the list of Credentials
     -a, --all                        Sets Email Payload Ports to scan
     -f, --filter                     flag to search by parameters
-        --email [EMAIL]              Display the list of hits
-        --campaign [CAMPAIGN]        Display the list of hits
-        --ip [IP_ADDRESS]            Display the list of hits
+        --email <span class="o">[</span>EMAIL<span class="o">]</span>              Display the list of hits
+        --campaign <span class="o">[</span>CAMPAIGN<span class="o">]</span>        Display the list of hits
+        --ip <span class="o">[</span>IP_ADDRESS<span class="o">]</span>            Display the list of hits
     -h, --help                       Show this message
 
-</code></pre>
+</pre></div>
 
 <h3>
 <a name="building-commands" class="anchor" href="#building-commands"><span class="octicon octicon-link"></span></a>Building Commands</h3>
@@ -374,17 +371,12 @@ Additionally, anyone can easily create them manually and store them in <em>~/.ca
 
 <p><a href="https://github.com/Section9Labs/Cartero/issues">https://github.com/Section9Labs/Cartero/issues</a></p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Cartero maintained by <a href="https://github.com/Section9Labs">Section9Labs</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Section9Labs">Section9Labs</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-
+    <script src="javascripts/scale.fix.js"></script>
     
-
   </body>
 </html>
