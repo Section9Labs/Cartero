@@ -405,15 +405,15 @@ Usage: Cartero AdminConsole <span class="o">[</span>options<span class="o">]</sp
 
 <p><strong>TEXT SAMPLE TEMPLATE</strong></p>
 
-<div class="highlight highlight-txt"><pre><span class="err">Hola</span> <span class="err">&lt;%=</span> <span class="err">self[:name]</span> <span class="err">%&gt;,</span>
-<span class="err">This</span> <span class="err">email</span> <span class="err">needs</span> <span class="err">to</span> <span class="err">be</span> <span class="err">displayed</span> <span class="err">as</span> <span class="err">HTML.</span>
-<span class="err">This</span> <span class="err">is</span> <span class="err">an</span> <span class="err">automated</span> <span class="err">email</span> <span class="err">to</span> <span class="err">your</span> <span class="err">email&lt;%=</span> <span class="err">self[:email]</span> <span class="err">%&gt;.</span>
-<span class="err">In</span> <span class="err">addition,</span> <span class="err">this</span> <span class="err">email</span> <span class="err">can</span> <span class="err">also</span> <span class="err">be</span> <span class="err">displayed</span> <span class="err">securely</span>
-<span class="err">on</span> <span class="err">http://192.168.1.216:8080/click?key=&lt;%=</span> <span class="err">self[:payload]</span> <span class="err">%&gt;</span>
+<div class="highlight highlight-txt"><pre>Hola <%= self[:name] %>,
+This email needs to be displayed as HTML.
+This is an automated email to your email<%= self[:email] %>.
+In addition, this email can also be displayed securely
+on http://192.168.1.216:8080/click?key=<%= self[:payload] %>
 
-<span class="err">cheers,</span>
+cheers,
 
-<span class="err">&lt;%=</span> <span class="err">self[:from_name]</span> <span class="err">%&gt;</span>
+<%= self[:from_name] %>
 
 </pre></div>
 
