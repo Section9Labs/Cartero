@@ -103,10 +103,11 @@ Global options:
     -m, --mongodb <span class="o">[</span>HOST:PORT<span class="o">]</span>        Global Flag fo Mailer and Webserver ports
     -d, --debug                      Sets debug flag on/off
         --editor <span class="o">[</span>EDITOR<span class="o">]</span>            Edit Server
-        --list-commands              Prints list of commands <span class="k">for</span> bash completion
+
 
 Common options:
     -h, --help <span class="o">[</span>COMMAND<span class="o">]</span>             Show this message
+        --list-commands              Prints list of commands <span class="k">for</span> bash completion
         --version                    Shows cartero CLI version
 </pre></div>
 
@@ -144,7 +145,10 @@ Usage: Cartero Cloner <span class="o">[</span>options<span class="o">]</span>
         --useragent <span class="o">[</span>UA_STRING<span class="o">]</span>      Sets user agent <span class="k">for</span> cloning
         --wget                       Use wget to clone url
         --apache                     Generate Apache Proxy conf
+
+Common options:
     -h, --help                       Show this message
+        --list-options               Show list of available options
 </pre></div>
 
 <h4>
@@ -166,8 +170,11 @@ Usage: Cartero Listener <span class="o">[</span>options<span class="o">]</span>
         --webserver
         --payload <span class="o">[</span>PAYLOAD<span class="o">]</span>          Sets a payload download to serve on /download
         --customapp <span class="o">[</span>CUSTOM_SINATRA<span class="o">]</span> Sets a custom Sinatra::Base WebApp. Important, WebApp name should be camelized of filename
-    -h, --help                       Show this message
 
+Common options:
+    -h, --help                       Show this message
+        --list-options               Show list of available options
+        
 </pre></div>
 
 <p>The WebServers support ssl keys, different public and view paths. Additionally the servers can also be hosted on multiple ports at the same time and they can be bind to a specific IP address as well.</p>
@@ -178,13 +185,26 @@ Usage: Cartero Listener <span class="o">[</span>options<span class="o">]</span>
 <p>In order to send emails campaigns we need to setup servers. This is a command that would help Cartero to create, store and list servers. All data is stored on .cartero configuration directory.</p>
 
 <div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Servers
-
-Usage: Cartero Servers <span class="o">[</span>options<span class="o">]</span>
-    -a, --add <span class="o">[</span>NAME<span class="o">]</span>                 Add Server
-    -e, --edit <span class="o">[</span>NAME<span class="o">]</span>                Edit Server
-    -d, --delete <span class="o">[</span>NAME<span class="o">]</span>              Edit Server
+Usage: Cartero Servers [options]
+    -a, --add [NAME]                 Add Server
+    -e, --edit [NAME]                Edit Server
+    -d, --delete [NAME]              Edit Server
     -l, --list                       List servers
+
+Configuration options:
+    -T, --type [TYPE]                Set the type
+    -U, --url [DOMAIN]               Set the Mail or WebMail url/address
+    -M, --method [METHOD]            Sets the WebMail Request Method to use [GET|POST]
+        --api-access [API_KEY]       Sets the Linkedin API Access Key
+        --api-secret [API_SECRET]    Sets the Linkedin API Secret Key
+        --oauth-token [OAUTH_TOKEN]  Sets the Linkedin OAuth Token Key
+        --oauth-secret [OAUTH_SECRET]
+                                     Sets the Linkedin OAuth Secret Key
+
+Common options:
     -h, --help                       Show this message
+        --list-options               Show list of available options
+          
 </pre></div>
 
 <h4>
@@ -198,7 +218,10 @@ Usage: Cartero Templates <span class="o">[</span>options<span class="o">]</span>
     -e, --edit <span class="o">[</span>NAME<span class="o">]</span>                Edit Template
     -d, --delete <span class="o">[</span>NAME<span class="o">]</span>              Edit Template
     -l, --list                       List Templates
+
+Common options:
     -h, --help                       Show this message
+        --list-options               Show list of available options
 </pre></div>
 
 <h4>
@@ -224,7 +247,11 @@ Usage: Cartero Mailer <span class="o">[</span>options<span class="o">]</span>
         --attachment
     -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Sets Email Payload Ports to scan
         --ports
+
+Common options:
     -h, --help                       Show this message
+        --list-options               Show list of available options
+        
 </pre></div>
 
 <h4>
@@ -248,7 +275,11 @@ Usage: Cartero Mailer <span class="o">[</span>options<span class="o">]</span>
         --attachment
     -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Sets Email Payload Ports to scan
         --ports
+
+Common options:
     -h, --help                       Show this message
+        --list-options               Show list of available options
+        
 </pre></div>
 
 <p>The Command can be used in two main ways. One using a raw command such as the one we get from Intercepting traffic with a web proxy (i.e. Burp Proxy) and or using the servers command available on Cartero.</p>
@@ -289,6 +320,29 @@ Usage: Cartero Mailer <span class="o">[</span>options<span class="o">]</span>
 </pre></div>
 
 <h4>
+<a name="linkedin" class="anchor" href="#linkedin"><span class="octicon octicon-link"></span></a>LinkedIn</h4>
+
+<p>The LinkedIn command is the first Social Network addition to the Cartero Framework. Allowing attackers to use the message platform to send messages and attack users from LinkedIn.</p>
+
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero LinkedIn
+Usage: Cartero LinkedIn [options]
+    -D, --data [DATA_FILE]           File containing template data sets
+    -S, --server [SERVER_NAME]       Sets Email server to use
+    -s, --subject [MESSAGE_SUBJECT]  Sets LinkedIn Message subject
+    -b, --body [FILE_PATH]           Sets LinkedIn Message Body
+    -l, --list-connections           Show Summary of connections
+    -o, --save [FILE_PATH]           Sets LinkedIn Message Body
+
+Common options:
+    -h, --help                       Show this message
+        --list-options               Show list of available options
+  
+</pre></div>
+
+<p>The command requires a developer API and oauth key on the attackers profile. This can be easily obtained in <a href="https://www.linkedin.com/secure/developer">https://www.linkedin.com/secure/developer</a>. and a new server template can be created with the Servers command.</p>
+
+
+<h4>
 <a name="adminweb" class="anchor" href="#adminweb"><span class="octicon octicon-link"></span></a>AdminWeb</h4>
 
 <p>The Admin Web is a simple Web-Application that allows to list information about each Campaign.</p>
@@ -301,7 +355,11 @@ Usage: Cartero AdminConsole <span class="o">[</span>options<span class="o">]</sp
     -s, --ssl                        Run over SSL. <span class="o">[</span>this also requires --sslcert and --sslkey<span class="o">]</span>
     -C, --sslcert <span class="o">[</span>CERT_PATH<span class="o">]</span>        Sets Email Payload Ports to scan
     -K, --sslkey <span class="o">[</span>KEY_PATH<span class="o">]</span>          Sets Email Payload Ports to scan
+
+Common options:
     -h, --help                       Show this message
+        --list-options               Show list of available options
+  
 </pre></div>
 
 <h4>
@@ -319,7 +377,10 @@ Usage: Cartero AdminConsole <span class="o">[</span>options<span class="o">]</sp
         --email <span class="o">[</span>EMAIL<span class="o">]</span>              Display the list of hits
         --campaign <span class="o">[</span>CAMPAIGN<span class="o">]</span>        Display the list of hits
         --ip <span class="o">[</span>IP_ADDRESS<span class="o">]</span>            Display the list of hits
+
+Common options:
     -h, --help                       Show this message
+        --list-options               Show list of available options
 
 </pre></div>
 
