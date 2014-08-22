@@ -341,6 +341,28 @@ Common options:
 
 <p>The command requires a developer API and oauth key on the attackers profile. This can be easily obtained in <a href="https://www.linkedin.com/secure/developer">https://www.linkedin.com/secure/developer</a>. and a new server template can be created with the Servers command.</p>
 
+<h4>
+<a name="imessage" class="anchor" href="#imessage"><span class="octicon octicon-link"></span></a>IMessage</h4>
+
+<p>After reading some news on how Chinese spammers are abusing the fact that iMessage messages will be displayed on all devices linked to the account/s, a quick command was developer to allow Cartero users to also have this feature available to the Framework.<i></i> Important: This will only work on OSX, for now</i></p>
+
+<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero IMessage
+Usage: Cartero IMessage [options]
+IMPORTANT: This command only works on OSX
+
+    -D, --data [DATA_FILE]           File containing template data sets
+    -A, --attachment [ATTACHMENT]    Sets iMessage file path to send
+    -b, --body [BODY_FILE]           Sets iMessage message
+    -m, --message [MESSAGE]          Sets iMessage message
+
+Common options:
+    -h, --help                       Show this message
+        --list-options               Show list of available options
+        
+</pre></div>
+
+<p>Messages do not allow to send a single message containing both text and attachments, but we both are provided we will split the message and send it as two individual ones..</p>
+<p>This is an interesting vector of attack to trigger mobile vulnerabilities that can be triggered through URL handlers.</p>
 
 <h4>
 <a name="adminweb" class="anchor" href="#adminweb"><span class="octicon octicon-link"></span></a>AdminWeb</h4>
