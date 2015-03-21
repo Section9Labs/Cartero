@@ -15,9 +15,6 @@ h1, h2, h3, h4, h5, h6 {
 p, ul, ol, table, pre, dl {
   margin:0 0 20px;
 }
-p {
-  text-align: justify;
-}
 
 h1, h2, h3 {
   line-height:1.1;
@@ -49,7 +46,7 @@ a small {
 }
 
 .wrapper {
-  width:960px;
+  width:860px;
   margin:0 auto;
 }
 
@@ -163,7 +160,7 @@ header ul a strong {
 }
 
 section {
-  width:600px;
+  width:500px;
   float:right;
   padding-bottom:50px;
 }
