@@ -36,7 +36,7 @@ h1 {
   font-size:50px;
 }
 
-p.subtitle {
+p#subtitle {
   font: 20px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
