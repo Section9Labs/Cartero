@@ -1,6 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
 .img-circle {
+  -webkit-border-radius: 500px;
+  -moz-border-radius: 500px;
+  border-radius: 500px;
   box-shadow: 0 0 0 4px #fff, 0 0 10px 4px #d0d0d0;
   -moz-box-shadow: 0 0 0 4px #fff, 0 0 10px 4px #d0d0d0;
   -webkit-box-shadow: 0 0 0 4px #fff, 0 0 10px 4px #d0d0d0; 
