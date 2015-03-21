@@ -1,202 +1,211 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Cartero by Section9Labs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <title>Cartero by Section9Labs</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
-        <img src="https://camo.githubusercontent.com/5eac524794d4792fe0c11eec4989cd4ad156f319/687474703a2f2f69636f6e732e69636f6e617263686976652e636f6d2f69636f6e732f73696d696f67726170686963732f6d697865642f3132382f4d61696c426f782d69636f6e2e706e67">
+    <header>
+      <div class="inner">
         <h1>Cartero</h1>
-        <p>Mailing Phishing Framework</p>
+        <h2>Phishing Framework</h2>
+        <a href="https://github.com/Section9Labs/Cartero" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
 
-        <p class="view"><a href="https://github.com/Section9Labs/Cartero">View the Project on GitHub <small>Section9Labs/Cartero</small></a></p>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h3>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description</h3>
 
+<p>A robust Phishing Framework with a full featured CLI interface. The project was born out necessity through of years of engagements with tools that just didn't do the job. Even though there are many projects out there, we were not able to find a suitable solution that gave us both easy of use and customizability.</p>
 
-        <ul>
-          <li><a href="https://github.com/Section9Labs/Cartero/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/Section9Labs/Cartero/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/Section9Labs/Cartero">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a name="cartero" class="anchor" href="#cartero"><span class="octicon octicon-link"></span></a>Cartero</h1>
+<p>Cartero is a modular project divided into commands that perform independent tasks (i.e. Mailer, Cloner, Listener, AdminConsole, etc...). In addition each sub-command has repeatable configuration options to configure and automate your work.</p>
 
-<h3>
-<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h3>
+<p>For example, if we wanted to clone gmail.com, we simply have to perform the following commands.</p>
 
-<p>A simple Phishing Framework Library with a CLI tool. The project was born out of necessity on projects. Even though there are many projects out there, we were not able to find a suitable solution that gave us both easy of use and customizability.</p>
-
-<p>Cartero is a modular project divided into commands that perform independent tasks (i.e. Mailer, Cloner, Listener, AdminConsole, etc...). In addition each sub-command has options. </p>
-
-<p>For example, if we wanted to clone gmail.com, we simply have to perform the following commands. </p>
-
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Cloner --url https://gmail.com --path /tmp --webserver gmail_com
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero Cloner --url https://gmail.com --path /tmp --webserver gmail_com
 ❯❯❯ ./cartero Listener --webserver /tmp/gmail_com -p 80
 Launching mongodb
-Puma starting in single mode...
-* Version 2.8.2 <span class="o">(</span>ruby 2.1.1-p76<span class="o">)</span>, codename: Sir Edmund Percival Hillary
-* Min threads: 4, max threads: 16
-* Environment: production
-* Listening on tcp://0.0.0.0:80
-Use Ctrl-C to stop
-</pre></div>
+Puma starting <span class="pl-k">in</span> single mode...
+<span class="pl-k">*</span> Version 2.8.2 (ruby 2.1.1-p76), codename: Sir Edmund Percival Hillary
+<span class="pl-k">*</span> Min threads: 4, max threads: 16
+<span class="pl-k">*</span> Environment: production
+<span class="pl-k">*</span> Listening on tcp://0.0.0.0:80
+Use Ctrl-C to stop</pre></div>
 
-<p>Once we have a site up and running we can simply use the Mailer command to send templated emails to our testing victims:</p>
+<p>Once we have a site up and running we can simply use the Mailer command to send templated emails to our victims:</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Mailer --data victims.json --server gmail2 --subject <span class="s2">"Internal Memo"</span> --htmlbody email_html.html --attachment payload.pdf --from <span class="s2">"John Doe &lt;jdoe@company.com&gt;"</span>
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero Mailer --data victims.json --server gmail_com --subject <span class="pl-s"><span class="pl-pds">"</span>Internal Memo<span class="pl-pds">"</span></span> --htmlbody email_html.html --attachment payload.pdf --from <span class="pl-s"><span class="pl-pds">"</span>John Doe &lt;jdoe@company.com&gt;<span class="pl-pds">"</span></span>
 Sending victim1@company.com
 Sending victim2@company.com
 Sending victim3@company.com
-
 </pre></div>
 
 <h3>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Automated Installation</h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h3>
 
-<p>Using brew 1.9.3 ruby as default ruby library</p>
-<div class="highlight highlight-bash"><pre>❯❯❯ curl -L https://raw.githubusercontent.com/FreedomCoder/Cartero/master/data/scripts/setup.sh | bash
+<h5>
+<a id="automated-installation" class="anchor" href="#automated-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Automated Installation</h5>
 
-</pre></div>
-<p>Using RVM 1.9.3 ruby installation</p>
-<div class="highlight highlight-bash"><pre>❯❯❯ curl -L https://raw.githubusercontent.com/FreedomCoder/Cartero/master/data/scripts/setup.sh | bash -s -- -r
+<p>Using brew 2.1.5 ruby as default ruby library</p>
 
-</pre></div>
+<div class="highlight highlight-shell"><pre>❯❯❯ curl -L https://raw.githubusercontent.com/Section9Labs/Cartero/master/data/scripts/setup.sh <span class="pl-k">|</span> bash</pre></div>
 
-<h3>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Manual Installation</h3>
+<p>Using RVM 2.1.5 ruby installation</p>
 
-<h4>
-<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h4>
-
-<div class="highlight highlight-bash"><pre>❯❯❯ brew install mongodb
-</pre></div>
+<div class="highlight highlight-shell"><pre>❯❯❯ curl -L https://raw.githubusercontent.com/Section9Labs/Cartero/master/data/scripts/setup.sh <span class="pl-k">|</span> bash -s -- -r</pre></div>
 
 <h4>
-<a name="framework" class="anchor" href="#framework"><span class="octicon octicon-link"></span></a>Framework</h4>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h4>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ git clone https://github.com/section9labs/Cartero
-❯❯❯ <span class="nb">cd </span>Cartero
+<h5>
+<a id="ruby" class="anchor" href="#ruby" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ruby</h5>
+
+<div class="highlight highlight-shell"><pre>❯❯❯ <span class="pl-cce">\c</span>url -sSL https://get.rvm.io <span class="pl-k">|</span> bash -s stable --ruby</pre></div>
+
+<h5>
+<a id="mongodb" class="anchor" href="#mongodb" aria-hidden="true"><span class="octicon octicon-link"></span></a>MongoDB</h5>
+
+<p>On OSX:</p>
+
+<div class="highlight highlight-shell"><pre>❯❯❯ brew install mongodb</pre></div>
+
+<p>On Ubuntu / Kali / Debian</p>
+
+<div class="highlight highlight-shell"><pre>❯❯❯ apt-get install mongodb</pre></div>
+
+<p>On Arch Linux</p>
+
+<pre><code>❯❯❯ pacman -Syu mongodb
+</code></pre>
+
+<h4>
+<a id="framework" class="anchor" href="#framework" aria-hidden="true"><span class="octicon octicon-link"></span></a>Framework</h4>
+
+<div class="highlight highlight-shell"><pre>❯❯❯ git clone https://github.com/section9labs/Cartero
+❯❯❯ <span class="pl-c1">cd</span> Cartero
 ❯❯❯ gem install bundle
 ❯❯❯ bundle install
-❯❯❯ <span class="nb">cd </span>bin
-</pre></div>
+❯❯❯ <span class="pl-c1">cd</span> bin</pre></div>
 
 <h3>
-<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h3>
 
 <h3>
-<a name="commands" class="anchor" href="#commands"><span class="octicon octicon-link"></span></a>Commands</h3>
+<a id="commands" class="anchor" href="#commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Commands</h3>
 
-<p>Cartero is a very simple to use CLI.</p>
+<p>Cartero is a very powerful easy to use CLI.</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero
-Usage: cartero <span class="o">[</span>options<span class="o">]</span>
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero
+Usage: cartero [options]
 
 List of Commands:
     AdminConsole, AdminWeb, Mailer, Cloner, Listener, Servers, Templates
 
 Global options:
-        --proxy <span class="o">[</span>HOST:PORT<span class="o">]</span>          Sets TCPSocket Proxy server
-    -c, --config <span class="o">[</span>CONFIG_FILE<span class="o">]</span>       Provide a different cartero config file
-    -v, --<span class="o">[</span>no-<span class="o">]</span>verbose               Run verbosely
-    -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Global Flag fo Mailer and Webserver ports
+        --proxy [HOST:PORT]          Sets TCPSocket Proxy server
+    -c, --config [CONFIG_FILE]       Provide a different cartero config file
+    -v, --[no-]verbose               Run verbosely
+    -p [PORT_1,PORT_2,..,PORT_N],    Global Flag fo Mailer and Webserver ports
         --ports
-    -m, --mongodb <span class="o">[</span>HOST:PORT<span class="o">]</span>        Global Flag fo Mailer and Webserver ports
+    -m, --mongodb [HOST:PORT]        Global Flag fo Mailer and Webserver ports
     -d, --debug                      Sets debug flag on/off
-        --editor <span class="o">[</span>EDITOR<span class="o">]</span>            Edit Server
+        --editor [EDITOR]            Edit Server
 
 
 Common options:
-    -h, --help <span class="o">[</span>COMMAND<span class="o">]</span>             Show this message
-        --list-commands              Prints list of commands <span class="k">for</span> bash completion
-        --version                    Shows cartero CLI version
-</pre></div>
+    -h, --help [COMMAND]             Show this message
+        --list-commands              Prints list of commands <span class="pl-k">for</span> <span class="pl-smi">bash</span> completion
+        --version                    Shows cartero CLI version</pre></div>
 
 <h3>
-<a name="basic-commands" class="anchor" href="#basic-commands"><span class="octicon octicon-link"></span></a>Basic Commands</h3>
+<a id="basic-commands" class="anchor" href="#basic-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic Commands</h3>
 
 <h4>
-<a name="mongo" class="anchor" href="#mongo"><span class="octicon octicon-link"></span></a>Mongo</h4>
+<a id="mongo" class="anchor" href="#mongo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mongo</h4>
 
-<p>This is a simple Wrapper for MongoDB that allows us to start stop the database with the corresponding commands and on the correct ~/.cartero path..</p>
+<p>This is a simple Wrapper for MongoDB that allows us to start stop the database with the corresponding commands and on the correct ~/.cartero path.</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Mongo
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero Mongo
 Usage: Cartero Mongo [options]
     -s, --start                      Start MongoDB
     -k, --stop                       Stop MongoDB
     -r, --restart                    Restart MongoDB
     -b, --bind [HOST:PORT]           Set MongoDB bind_ip and port
-    -h, --help                       Show this message
-</pre></div>
 
-<p>By default the command users our own internal system to download and convert links to render, but we also support a <em>--wget</em> option that will use wget system command.</p>
+Common options:
+    -h, --help                       Show this message
+        --list-options               Show list of available options</pre></div>
 
 <h4>
-<a name="cloner" class="anchor" href="#cloner"><span class="octicon octicon-link"></span></a>Cloner</h4>
+<a id="cloner" class="anchor" href="#cloner" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cloner</h4>
 
-<p>A simple WebSite Cloner. It allows us to download and convert a website into a Cartero WebServer application.
-In this way we can easily customize the website to Harvest Credentials, Server Payloads, or create a fully customized website.</p>
+<p>A WebSite Cloner that allows us to download and convert a website into a Cartero WebServer application.
+We can quickly and easily customize the website to Harvest Credentials, Server Payloads, or fully modify the site for any number of purposes.</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Cloner
-Usage: Cartero Cloner <span class="o">[</span>options<span class="o">]</span>
-    -U, --url <span class="o">[</span>URL_PATH<span class="o">]</span>             Full Path of site to clone
-    -W, --webserver <span class="o">[</span>SERVER_NAME<span class="o">]</span>    Sets WebServer name to use
-    -p, --path <span class="o">[</span>PATH<span class="o">]</span>                Sets path to save webserver
-    -P, --payload <span class="o">[</span>PAYLOAD_PATH<span class="o">]</span>     Sets payload path
-        --useragent <span class="o">[</span>UA_STRING<span class="o">]</span>      Sets user agent <span class="k">for</span> cloning
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero Cloner
+Usage: Cartero Cloner [options]
+    -U, --url [URL_PATH]             Full Path of site to clone
+    -W, --webserver [SERVER_NAME]    Sets WebServer name to use
+    -p, --path [PATH]                Sets path to save webserver
+    -P, --payload [PAYLOAD_PATH]     Sets payload path
+        --useragent [UA_STRING]      Sets user agent <span class="pl-k">for</span> <span class="pl-smi">cloning</span>
         --wget                       Use wget to clone url
         --apache                     Generate Apache Proxy conf
 
 Common options:
     -h, --help                       Show this message
-        --list-options               Show list of available options
-</pre></div>
+        --list-options               Show list of available options</pre></div>
+
+<p>By default the command uses our Ruby implementation to download and convert links to render, but we also support a <em>--wget</em> option that will use the local wget system command.</p>
 
 <h4>
-<a name="listener" class="anchor" href="#listener"><span class="octicon octicon-link"></span></a>Listener</h4>
+<a id="listener" class="anchor" href="#listener" aria-hidden="true"><span class="octicon octicon-link"></span></a>Listener</h4>
 
-<p>The listener is the system responsible of running the WebServer created through Cloner or manually. By default we also have a very simple WebServer if none is provided.</p>
+<p>The listener is responsible for running the WebServer created through Cloner or a manually created site. By default we present a very simple website if none is provided.</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Listener
-Usage: Cartero Listener <span class="o">[</span>options<span class="o">]</span>
-    -i, --ip <span class="o">[</span>1.1.1.1<span class="o">]</span>               Sets IP interface, default is 0.0.0.0
-    -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Sets Email Payload Ports to scan
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero Listener
+Usage: Cartero Listener [options]
+    -i, --ip [1.1.1.1]               Sets IP interface, default is 0.0.0.0
+    -p [PORT_1,PORT_2,..,PORT_N],    Sets Email Payload Ports to scan
         --ports
-    -s, --ssl                        Run over SSL. <span class="o">[</span>this also requires --sslcert and --sslkey<span class="o">]</span>
-    -C, --sslcert <span class="o">[</span>CERT_PATH<span class="o">]</span>        Sets Email Payload Ports to scan
-    -K, --sslkey <span class="o">[</span>KEY_PATH<span class="o">]</span>          Sets SSL key to use <span class="k">for</span> Listener.
-    -V, --views <span class="o">[</span>VIEWS_FOLDER<span class="o">]</span>       Sets SSL Certificate to use <span class="k">for</span> Listener.
-    -P, --public <span class="o">[</span>PUBLIC_FOLDER<span class="o">]</span>     Sets a Sinatra public_folder
-    -W <span class="o">[</span>WEBSERVER_FOLDER<span class="o">]</span>,           Sets the sinatra full path from cloner.
+    -s, --ssl                        Run over SSL. [this also requires --sslcert and --sslkey]
+    -C, --sslcert [CERT_PATH]        Sets Email Payload Ports to scan
+    -K, --sslkey [KEY_PATH]          Sets SSL key to use <span class="pl-k">for</span> <span class="pl-smi">Listener</span>.
+    -V, --views [VIEWS_FOLDER]       Sets SSL Certificate to use <span class="pl-k">for</span> <span class="pl-smi">Listener</span>.
+    -P, --public [PUBLIC_FOLDER]     Sets a Sinatra public_folder
+    -W [WEBSERVER_FOLDER],           Sets the sinatra full path from cloner.
         --webserver
-        --payload <span class="o">[</span>PAYLOAD<span class="o">]</span>          Sets a payload download to serve on /download
-        --customapp <span class="o">[</span>CUSTOM_SINATRA<span class="o">]</span> Sets a custom Sinatra::Base WebApp. Important, WebApp name should be camelized of filename
+        --payload [PAYLOAD]          Sets a payload download to serve on /download
+        --customapp [CUSTOM_SINATRA] Sets a custom Sinatra::Base WebApp. Important, WebApp name should be camelized of filename
 
 Common options:
     -h, --help                       Show this message
         --list-options               Show list of available options
-        
 </pre></div>
 
-<p>The WebServers support ssl keys, different public and view paths. Additionally the servers can also be hosted on multiple ports at the same time and they can be bind to a specific IP address as well.</p>
+<p>The WebServers support ssl keys and virtual hosts across multiple IP, Hostnames, and Ports.</p>
 
 <h4>
-<a name="servers" class="anchor" href="#servers"><span class="octicon octicon-link"></span></a>Servers</h4>
+<a id="servers" class="anchor" href="#servers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Servers</h4>
 
-<p>In order to send emails campaigns we need to setup servers. This is a command that would help Cartero to create, store and list servers. All data is stored on .cartero configuration directory.</p>
+<p>In order to send emails campaigns we need to setup email servers and this command allows Cartero to create, store and list servers. All data is stored in the ~/.cartero configuration directory.</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Servers
+<div class="highlight highlight-shell"><pre>./cartero Servers
 Usage: Cartero Servers [options]
     -a, --add [NAME]                 Add Server
     -e, --edit [NAME]                Edit Server
@@ -204,9 +213,9 @@ Usage: Cartero Servers [options]
     -l, --list                       List servers
 
 Configuration options:
-    -T, --type [TYPE]                Set the type
+    -T, --type [TYPE]                Set the <span class="pl-c1">type</span>
     -U, --url [DOMAIN]               Set the Mail or WebMail url/address
-    -M, --method [METHOD]            Sets the WebMail Request Method to use [GET|POST]
+    -M, --method [METHOD]            Sets the WebMail Request Method to use [GET<span class="pl-k">|</span>POST]
         --api-access [API_KEY]       Sets the Linkedin API Access Key
         --api-secret [API_SECRET]    Sets the Linkedin API Secret Key
         --oauth-token [OAUTH_TOKEN]  Sets the Linkedin OAuth Token Key
@@ -215,152 +224,149 @@ Configuration options:
 
 Common options:
     -h, --help                       Show this message
-        --list-options               Show list of available options
-          
-</pre></div>
+        --list-options               Show list of available options</pre></div>
 
 <h4>
-<a name="templates" class="anchor" href="#templates"><span class="octicon octicon-link"></span></a>Templates</h4>
+<a id="templates" class="anchor" href="#templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Templates</h4>
 
-<p>Just like Servers, email campaigns also need to send a body or html body. This will allow you to keep track, create, list and edit templates being used for each email. It is worth noting that this are not necessary to use and the Mailer command takes direct path to emails templates as well.</p>
+<p>Just like Servers, email campaigns also need a pre-defined Template for sending content to the victims. This module allows the attacker to keep track, create, list, and edit templates being used in their campaign.</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Templates
-Usage: Cartero Templates <span class="o">[</span>options<span class="o">]</span>
-    -a, --add <span class="o">[</span>NAME<span class="o">]</span>                 Add Template
-    -e, --edit <span class="o">[</span>NAME<span class="o">]</span>                Edit Template
-    -d, --delete <span class="o">[</span>NAME<span class="o">]</span>              Edit Template
+<p>Note: Setting templates here is not necessary and Mailer accepts a direct path to emails templates from the CLI.</p>
+
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero Templates
+Usage: Cartero Templates [options]
+    -a, --add [NAME]                 Add Template
+    -e, --edit [NAME]                Edit Template
+    -d, --delete [NAME]              Edit Template
     -l, --list                       List Templates
+    -h, --help                       Show this message</pre></div>
+
+<h4>
+<a id="mailer" class="anchor" href="#mailer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mailer</h4>
+
+<p>THe main command and component in the Cartero Framework -- It allows Cartero to send custom templated emails to one or more email addresses.</p>
+
+<p>Each email can be customized using the powerful erb Template engine, allowing users to create complex programmatic rules within the templates to send massive amounts of very targeted emails.</p>
+
+<p>For more information on how to build custom templates, please refer to our Examples.</p>
+
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero Mailer
+Usage: Cartero Mailer [options]
+    -D, --data [DATA_FILE]           File containing template data sets
+    -S, --server [SERVER_NAME]       Sets Email server to use
+    -s, --subject [EMAIL_SUBJECT]    Sets Email subject
+    -f, --from [EMAIL_FROM]          Sets Email from
+    -r, --reply-to [EMAIL_REPLY_TO]  Sets Email from
+    -b, --body [FILE_PATH]           Sets Email Text Body
+    -B, --htmlbody [FILE_PATH]       Sets Email HTML Body
+    -c, --charset [CHARSET]          Sets Email charset
+    -C [CONTENT_TYPE],               Sets Email content <span class="pl-c1">type</span>
+        --content-type
+    -a [FILE_1,FILE_2,..,FILE_N],    Sets Email Attachments
+        --attachment
+    -p [PORT_1,PORT_2,..,PORT_N],    Sets Email Payload Ports to scan
+        --ports
 
 Common options:
     -h, --help                       Show this message
-        --list-options               Show list of available options
-</pre></div>
+        --list-options               Show list of available options</pre></div>
 
 <h4>
-<a name="mailer" class="anchor" href="#mailer"><span class="octicon octicon-link"></span></a>Mailer</h4>
+<a id="webmailer" class="anchor" href="#webmailer" aria-hidden="true"><span class="octicon octicon-link"></span></a>WebMailer</h4>
 
-<p>This is the main command and component in our Framework. Mailer allows Cartero users to send custom templated emails to one or more email addresses.
-Each email can be customized using the powerful erb Template engine, allowing users to create complex programming within the templates and send massive, but yet very targeted emails.
-For more information on how to build custom templates, please refer to our Examples.</p>
+<p>This command supports an alternative to SMTP / IMAP servers through send messages using known vulnerable or anonymous webmail services via web requests.</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Mailer
-Usage: Cartero Mailer <span class="o">[</span>options<span class="o">]</span>
-    -D, --data <span class="o">[</span>DATA_FILE<span class="o">]</span>           File containing template data sets
-    -S, --server <span class="o">[</span>SERVER_NAME<span class="o">]</span>       Sets Email server to use
-    -s, --subject <span class="o">[</span>EMAIL_SUBJECT<span class="o">]</span>    Sets Email subject
-    -f, --from <span class="o">[</span>EMAIL_FROM<span class="o">]</span>          Sets Email from
-    -r, --reply-to <span class="o">[</span>EMAIL_REPLY_TO<span class="o">]</span>  Sets Email from
-    -b, --body <span class="o">[</span>FILE_PATH<span class="o">]</span>           Sets Email Text Body
-    -B, --htmlbody <span class="o">[</span>FILE_PATH<span class="o">]</span>       Sets Email HTML Body
-    -c, --charset <span class="o">[</span>CHARSET<span class="o">]</span>          Sets Email charset
-    -C <span class="o">[</span>CONTENT_TYPE<span class="o">]</span>,               Sets Email content <span class="nb">type</span>
-        --content-type
-    -a <span class="o">[</span>FILE_1,FILE_2,..,FILE_N<span class="o">]</span>,    Sets Email Attachments
-        --attachment
-    -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Sets Email Payload Ports to scan
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero WebMailer
+Usage: Cartero WebMailer [options]
+    -R, --raw [RAW_REQUEST_FILE]     Sets WebMail Raw Request
+    -S, --server [SERVER_NAME]       Sets WebMail server to use
+    -U, --url [URL:PORT]             Sets WebMail server url to use
+    -H [HEADER:VAL<span class="pl-cce">\n</span>HEADER:VAL],     Sets WebMail Headers to use
+        --headers
+    -C, --cookies [COOKIES]          Sets WebMail Cookies to use
+    -D, --data [DATA_FILE]           File containing template data sets
+    -s, --subject [EMAIL_SUBJECT]    Sets Email subject
+    -f, --from [EMAIL_FROM]          Sets Email from
+    -r, --reply-to [EMAIL_REPLY_TO]  Sets Email reply-to
+    -b, --body [REQUEST_FILE_PATH]   Sets Email Text request query Body
+    -p [PORT_1,PORT_2,..,PORT_N],    Sets Email Payload Ports to scan
         --ports
 
 Common options:
     -h, --help                       Show this message
         --list-options               Show list of available options
-        
-</pre></div>
-
-<h4>
-<a name="mailer" class="anchor" href="#mailer"><span class="octicon octicon-link"></span></a>WebMailer</h4>
-
-<p>This new command is an add on to support yet another known method to send messages using known vulnerabilities or anonymous sending services on the web via web requests.</p>
-
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero Mailer
-Usage: Cartero Mailer <span class="o">[</span>options<span class="o">]</span>
-    -D, --data <span class="o">[</span>DATA_FILE<span class="o">]</span>           File containing template data sets
-    -S, --server <span class="o">[</span>SERVER_NAME<span class="o">]</span>       Sets Email server to use
-    -s, --subject <span class="o">[</span>EMAIL_SUBJECT<span class="o">]</span>    Sets Email subject
-    -f, --from <span class="o">[</span>EMAIL_FROM<span class="o">]</span>          Sets Email from
-    -r, --reply-to <span class="o">[</span>EMAIL_REPLY_TO<span class="o">]</span>  Sets Email from
-    -b, --body <span class="o">[</span>FILE_PATH<span class="o">]</span>           Sets Email Text Body
-    -B, --htmlbody <span class="o">[</span>FILE_PATH<span class="o">]</span>       Sets Email HTML Body
-    -c, --charset <span class="o">[</span>CHARSET<span class="o">]</span>          Sets Email charset
-    -C <span class="o">[</span>CONTENT_TYPE<span class="o">]</span>,               Sets Email content <span class="nb">type</span>
-        --content-type
-    -a <span class="o">[</span>FILE_1,FILE_2,..,FILE_N<span class="o">]</span>,    Sets Email Attachments
-        --attachment
-    -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Sets Email Payload Ports to scan
-        --ports
-
-Common options:
-    -h, --help                       Show this message
-        --list-options               Show list of available options
-        
 </pre></div>
 
 <p>The Command can be used in two main ways. One using a raw command such as the one we get from Intercepting traffic with a web proxy (i.e. Burp Proxy) and or using the servers command available on Cartero.</p>
 
 <h5>
-<a name="ExamplesServerWebMailer" class="anchor" href="#ExamplesServerWebMailer"><span class="octicon octicon-link"></span></a>Example of webmail server for send-mail.org</h5>
+<a id="example-of-webmail-server-for-send-mailorg" class="anchor" href="#example-of-webmail-server-for-send-mailorg" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example of webmail server for send-mail.org</h5>
+
 <div class="highlight highlight-json"><pre>{
-    "name": "send-email",
-    "type": "webmail",
-    "options": {
-        "url": "http://send-email.org/send",
-        "method": "POST",
-        "cookies": "",
-        "headers": {
-            "Host": "send-email.org",
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:29.0) Gecko/20100101 Firefox/29.0",
-            "Accept": "application/json, text/javascript, */*; q=0.01",
-            "Accept-Language": "en-US,en;q=0.5",
-            "Accept-Encoding": "gzip, deflate",
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "X-Requested-With": "XMLHttpRequest",
-            "Referer": "http://send-email.org/",
-            "Content-Length": "126",
-            "Connection": "keep-alive",
-            "Pragma": "no-cache"
+    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>send-email<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>webmail<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>options<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>http://send-email.org/send<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>POST<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>cookies<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>headers<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>Host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>send-email.org<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>User-Agent<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:29.0) Gecko/20100101 Firefox/29.0<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>Accept<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>application/json, text/javascript, */*; q=0.01<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>Accept-Language<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>en-US,en;q=0.5<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>Accept-Encoding<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>gzip, deflate<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>Content-Type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>application/x-www-form-urlencoded; charset=UTF-8<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>X-Requested-With<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>XMLHttpRequest<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>Referer<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>http://send-email.org/<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>Content-Length<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>126<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>Connection<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>keep-alive<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>Pragma<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>no-cache<span class="pl-pds">"</span></span>
         }
     },
-    "confirmation" : "Your message was sent!"
-}
-</pre></div>
+    <span class="pl-s"><span class="pl-pds">"</span>confirmation<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>Your message was sent!<span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p>Using this pre-configured request, we can easily send message using the same datasets for Mailer and using the same type of templates. An example is available in /templates/mail/sample.web</p>
 
 <h5>
-<a name="ExamplesServerWebMailer" class="anchor" href="#ExamplesServerWebMailer"><span class="octicon octicon-link"></span></a>Example of webmail server for send-mail.org</h5>
+<a id="sample-command" class="anchor" href="#sample-command" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sample Command:</h5>
 
-<p>Using this pre-configured request, we can easily send message using the same datasets for Mailer and using the same type of templates. As it is shown on /templates/mail/sample.web.</p>
-
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero WebMailer -S webmail -D ~/sample.json -b ../templates/mail/sample.web -r cartero@gmail.com
-</pre></div>
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero WebMailer -S webmail -D <span class="pl-k">~</span>/sample.json -b ../templates/mail/sample.web -r cartero@gmail.com</pre></div>
 
 <h4>
-<a name="linkedin" class="anchor" href="#linkedin"><span class="octicon octicon-link"></span></a>LinkedIn</h4>
+<a id="linkedin" class="anchor" href="#linkedin" aria-hidden="true"><span class="octicon octicon-link"></span></a>LinkedIn</h4>
 
-<p>The LinkedIn command is the first Social Network addition to the Cartero Framework. Allowing attackers to use the message platform to send messages and attack users from LinkedIn.</p>
+<p>The LinkedIn command is the first Social Network addition to the Cartero Framework. This plugin allows attackers to use the social platform to send messages and attack users all from within LinkedIn.</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero LinkedIn
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero LinkedIn
 Usage: Cartero LinkedIn [options]
     -D, --data [DATA_FILE]           File containing template data sets
     -S, --server [SERVER_NAME]       Sets Email server to use
     -s, --subject [MESSAGE_SUBJECT]  Sets LinkedIn Message subject
     -b, --body [FILE_PATH]           Sets LinkedIn Message Body
-    -l, --list-connections           Show Summary of connections
+    -l, --list [CONNECTIONS<span class="pl-k">|</span>GROUPS]  List json of (connections or groups)
+        --send [MESSAGE<span class="pl-k">|</span>GROUP_UPDATE]
+                                     Send one or more (message/s or group/s updates)
     -o, --save [FILE_PATH]           Sets LinkedIn Message Body
 
 Common options:
     -h, --help                       Show this message
-        --list-options               Show list of available options
-  
-</pre></div>
+        --list-options               Show list of available options</pre></div>
 
-<p>The command requires a developer API and oauth key on the attackers profile. This can be easily obtained in <a href="https://www.linkedin.com/secure/developer">https://www.linkedin.com/secure/developer</a>. and a new server template can be created with the Servers command.</p>
+<p>The command requires a developer API and oauth key on the attackers profile. This can be easily obtained in <a href="https://www.linkedin.com/secure/developer">https://www.linkedin.com/secure/developer</a>. and a new server template can be created with the Server command.</p>
 
 <h4>
-<a name="imessage" class="anchor" href="#imessage"><span class="octicon octicon-link"></span></a>IMessage</h4>
+<a id="imessage" class="anchor" href="#imessage" aria-hidden="true"><span class="octicon octicon-link"></span></a>IMessage</h4>
 
-<p>After reading some news on how Chinese spammers are abusing the fact that iMessage messages will be displayed on all devices linked to the account/s, a quick command was developer to allow Cartero users to also have this feature available to the Framework.<i></i> Important: This will only work on OSX, for now</i></p>
+<p>Allows Cartero, on OS X, to send iMessages to victims addresses just like emails, but these will show up on every iDevice they have registered with apple.</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero IMessage
+<p>Background: After reading some news on how Chinese spammers are abusing the fact that iMessage messages will be displayed on all devices linked to the account/s, a quick command was developer to allow Cartero users to also have this feature available to the Framework.</p>
+
+<p><em>Important: This will only work on OSX, for now</em></p>
+
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero IMessage
 Usage: Cartero IMessage [options]
-IMPORTANT: This command only works on OSX
+IMPORTANT: This <span class="pl-c1">command</span> only works on OSX
 
     -D, --data [DATA_FILE]           File containing template data sets
     -A, --attachment [ATTACHMENT]    Sets iMessage file path to send
@@ -369,185 +375,271 @@ IMPORTANT: This command only works on OSX
 
 Common options:
     -h, --help                       Show this message
-        --list-options               Show list of available options
-        
-</pre></div>
+        --list-options               Show list of available options</pre></div>
 
-<p>Messages do not allow to send a single message containing both text and attachments, but we both are provided we will split the message and send it as two individual ones..</p>
-<p>This is an interesting vector of attack to trigger mobile vulnerabilities that can be triggered through URL handlers.</p>
+<p>iMessage does not allow sending a single message containing both text and attachments, but when both are provided the message will be split and sent as two individual messages.</p>
+
+<h5>
+<a id="sample-command-1" class="anchor" href="#sample-command-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sample command</h5>
+
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero IMessage --data /Users/cartero/Desktop/test.json -b ../templates/mail/sample.imsg -a /Users/cartero/Downloads/jon.jpg</pre></div>
 
 <h4>
-<a name="adminweb" class="anchor" href="#adminweb"><span class="octicon octicon-link"></span></a>AdminWeb</h4>
+<a id="googlevoice" class="anchor" href="#googlevoice" aria-hidden="true"><span class="octicon octicon-link"></span></a>GoogleVoice</h4>
 
-<p>The Admin Web is a simple Web-Application that allows to list information about each Campaign.</p>
+<p>If you have a GoogleVoice account and want to automatically send SMS this might be a nice way to do it. It follows the same infrastructure as all other commands.</p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero AdminConsole
-Usage: Cartero AdminConsole <span class="o">[</span>options<span class="o">]</span>
-    -i, --ip <span class="o">[</span>1.1.1.1<span class="o">]</span>               Sets IP interface, default is 0.0.0.0
-    -p <span class="o">[</span>PORT_1,PORT_2,..,PORT_N<span class="o">]</span>,    Sets Email Payload Ports to scan
-        --ports
-    -s, --ssl                        Run over SSL. <span class="o">[</span>this also requires --sslcert and --sslkey<span class="o">]</span>
-    -C, --sslcert <span class="o">[</span>CERT_PATH<span class="o">]</span>        Sets Email Payload Ports to scan
-    -K, --sslkey <span class="o">[</span>KEY_PATH<span class="o">]</span>          Sets Email Payload Ports to scan
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero GoogleVoice
+Usage: Cartero GoogleVoice [options]
+    -D, --data [DATA_FILE]           File containing template data sets
+    -S, --server [SERVER_NAME]       Sets SMS server to use
+    -b, --body [FILE_PATH]           Sets SMS Text Body
+    -m, --message [MESSAGE]          Sets SMS message
+    -u, --username [USER]            Sets Google Voice Username
+    -p, --password [PWD]             Sets Google Voice password
 
 Common options:
     -h, --help                       Show this message
         --list-options               Show list of available options
-  
 </pre></div>
 
 <h4>
-<a name="adminconsole" class="anchor" href="#adminconsole"><span class="octicon octicon-link"></span></a>AdminConsole</h4>
+<a id="twilio" class="anchor" href="#twilio" aria-hidden="true"><span class="octicon octicon-link"></span></a>Twilio</h4>
 
-<p>The Admin Console is CLI tool that allows to list information about Persons, Campaigns, Hits and Credentials gathered.  </p>
+<p>If you have a Twilio account and want to automatically send SMS this might yet another way to send SMS. It is worth noting this is a paid service and it requires a valid access token (sid) and secret (secret_token). For more information please refer to Twilio's website at <a href="https://www.twilio.com/sms/api">https://www.twilio.com/sms/api</a></p>
 
-<div class="highlight highlight-bash"><pre>❯❯❯ ./cartero AdminConsole
-Usage: Cartero AdminConsole <span class="o">[</span>options<span class="o">]</span>
-    -p, --persons <span class="o">[</span>LATEST_N<span class="o">]</span>         Display the list of persons that responded
-    -i, --hits <span class="o">[</span>LATEST_N<span class="o">]</span>            Display the list of hits
-    -c, --creds <span class="o">[</span>LATEST_N<span class="o">]</span>           Display the list of Credentials
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero Twilio
+Usage: Cartero Twilio [options]
+    -D, --data [DATA_FILE]           File containing template data sets
+    -S, --server [SERVER_NAME]       Sets SMS server to use
+    -f, --from [NUMBER]              Sets SMS from number to use
+    -b, --body [FILE_PATH]           Sets SMS Text Body
+    -m, --message [MESSAGE]          Sets SMS message
+    -u, --sid [SID]                  Sets Twilio Username
+    -p, --token [TOKEN]              Sets Twilio password
+    -A, --attachment [PATH_1<span class="pl-k">||</span>PATH_2<span class="pl-k">||</span>PATH_3]    Sets Twilio MMS URL image paths to send
+
+Common options:
+    -h, --help                       Show this message
+        --list-options               Show list of available options
+</pre></div>
+
+<h4>
+<a id="adminweb" class="anchor" href="#adminweb" aria-hidden="true"><span class="octicon octicon-link"></span></a>AdminWeb</h4>
+
+<p>The Admin Web interface is a simple Web-Application that allows the attacker to retrieve information about all Campaigns.</p>
+
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero AdminConsole
+Usage: Cartero AdminConsole [options]
+    -i, --ip [1.1.1.1]               Sets IP interface, default is 0.0.0.0
+    -p [PORT_1,PORT_2,..,PORT_N],    Sets Email Payload Ports to scan
+        --ports
+    -s, --ssl                        Run over SSL. [this also requires --sslcert and --sslkey]
+    -C, --sslcert [CERT_PATH]        Sets Email Payload Ports to scan
+    -K, --sslkey [KEY_PATH]          Sets Email Payload Ports to scan
+
+Common options:
+    -h, --help                       Show this message
+        --list-options               Show list of available options</pre></div>
+
+<h4>
+<a id="adminconsole" class="anchor" href="#adminconsole" aria-hidden="true"><span class="octicon octicon-link"></span></a>AdminConsole</h4>
+
+<p>The Admin Console is CLI tool that allows to list information about Persons, Campaigns, Hits and Credentials gathered.</p>
+
+<div class="highlight highlight-shell"><pre>❯❯❯ ./cartero AdminConsole
+Usage: Cartero AdminConsole [options]
+    -p, --persons [LATEST_N]         Display the list of persons that responded
+    -i, --hits [LATEST_N]            Display the list of hits
+    -c, --creds [LATEST_N]           Display the list of Credentials
     -a, --all                        Sets Email Payload Ports to scan
     -f, --filter                     flag to search by parameters
-        --email <span class="o">[</span>EMAIL<span class="o">]</span>              Display the list of hits
-        --campaign <span class="o">[</span>CAMPAIGN<span class="o">]</span>        Display the list of hits
-        --ip <span class="o">[</span>IP_ADDRESS<span class="o">]</span>            Display the list of hits
+        --email [EMAIL]              Display the list of hits
+        --campaign [CAMPAIGN]        Display the list of hits
+        --ip [IP_ADDRESS]            Display the list of hits
 
 Common options:
     -h, --help                       Show this message
         --list-options               Show list of available options
-
 </pre></div>
 
 <h3>
-<a name="building-commands" class="anchor" href="#building-commands"><span class="octicon octicon-link"></span></a>Building Commands</h3>
+<a id="building-commands" class="anchor" href="#building-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building Commands</h3>
 
-<p>Commands have a fairly easy infrastructure. Default Framework commands are stored on <em>Cartero/lib/cartero/commands/*.rb</em> and <em>~/.cartero/commands/*.rb</em>.</p>
+<p>Commands have a fairly simple framework. Example Framework commands are stored in <em>Cartero/lib/cartero/commands/*.rb</em> and <em>~/.cartero/commands/*.rb</em>.</p>
 
-<div class="highlight highlight-ruby"><pre><span class="k">module</span> <span class="nn">Cartero</span>
-<span class="k">module</span> <span class="nn">Commands</span>
-<span class="k">class</span> <span class="nc">CommandName</span> <span class="o">&lt;</span> <span class="no">Cartero</span><span class="o">::</span><span class="no">Command</span>
-    <span class="k">def</span> <span class="nf">initialize</span>
-        <span class="k">super</span> <span class="k">do</span> <span class="o">|</span><span class="n">opts</span><span class="o">|</span>
-            <span class="n">opts</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"-x"</span><span class="p">,</span> <span class="s2">"--xoption [DATA_FILE]"</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span>
-            <span class="s2">"Description of command option"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
-        <span class="vi">@options</span><span class="o">.</span><span class="n">xoption</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="k">end</span>
-      <span class="n">opts</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"-y"</span><span class="p">,</span> <span class="s2">"--yoption [DATA_FILE]"</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span>
-        <span class="s2">"Description of command option"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span>
-        <span class="vi">@options</span><span class="o">.</span><span class="n">xoption</span> <span class="o">=</span> <span class="n">data</span>
-      <span class="k">end</span>
-      <span class="c1"># help() option already provided.</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
+<div class="highlight highlight-ruby"><pre><span class="pl-k">module</span> <span class="pl-en">Cartero</span>
+<span class="pl-k">module</span> <span class="pl-en">Commands</span>
+<span class="pl-k">class</span> <span class="pl-en">CommandName<span class="pl-e"> &lt; ::Cartero::Command</span></span>
+    <span class="pl-k">def</span> <span class="pl-en">initialize</span>
+        <span class="pl-k">super</span>(
+          <span class="pl-c1">name:</span> <span class="pl-s"><span class="pl-pds">"</span>Long Command Name Here<span class="pl-pds">"</span></span>,
+          <span class="pl-c1">description:</span> <span class="pl-s"><span class="pl-pds">"</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<span class="pl-pds">"</span></span>,
+          <span class="pl-c1">author:</span> [<span class="pl-s"><span class="pl-pds">"</span>Author Name &lt;noname [©] cartero.com&gt;<span class="pl-pds">"</span></span>],
+          <span class="pl-c1">type:</span><span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>,
+          <span class="pl-c1">license:</span> <span class="pl-s"><span class="pl-pds">"</span>LGPL<span class="pl-pds">"</span></span>,
+          <span class="pl-c1">references:</span> [
+            <span class="pl-s"><span class="pl-pds">"</span>https://section9labs.github.io/Cartero<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>https://section9labs.github.io/Cartero<span class="pl-pds">"</span></span>
+            ]
 
-  <span class="k">def</span> <span class="nf">setup</span>
-    <span class="c1"># This will be hooked and run before run().</span>
-    <span class="c1"># It is meant as a method so the commands can run everything before that.</span>
-  <span class="k">end</span>
+    ) <span class="pl-k">do </span>|<span class="pl-smi">opts</span>|
+      <span class="pl-c">#OptionsParser options available here.</span>
+            opts.on(<span class="pl-s"><span class="pl-pds">"</span>-x<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>--xoption [DATA_FILE]<span class="pl-pds">"</span></span>, <span class="pl-c1">String</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>Description of command option<span class="pl-pds">"</span></span>) <span class="pl-k">do </span>|<span class="pl-smi">data</span>|
+        <span class="pl-smi">@options</span>.xoption <span class="pl-k">=</span> data
+        <span class="pl-k">end</span>
+      opts.on(<span class="pl-s"><span class="pl-pds">"</span>-y<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>--yoption [DATA_FILE]<span class="pl-pds">"</span></span>, <span class="pl-c1">String</span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Description of command option<span class="pl-pds">"</span></span>) <span class="pl-k">do </span>|<span class="pl-smi">data</span>|
+        <span class="pl-smi">@options</span>.xoption <span class="pl-k">=</span> data
+      <span class="pl-k">end</span>
+      <span class="pl-c"># help() option already provided.</span>
+      <span class="pl-c"># --list-options for auto-complete automatic.</span>
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
 
-  <span class="k">def</span> <span class="nf">run</span>
-    <span class="c1"># Everything that will run.</span>
-  <span class="k">end</span>
+  <span class="pl-k">def</span> <span class="pl-en">setup</span>
+    <span class="pl-c"># This will be hooked and run before run().</span>
+    <span class="pl-c"># It is meant as a method so the commands can run everything before that.</span>
+  <span class="pl-k">end</span>
 
-  <span class="k">def</span> <span class="nf">after</span>
-    <span class="c1"># This is the place to run clean-up code.</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-<span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
+  <span class="pl-k">def</span> <span class="pl-en">run</span>
+    <span class="pl-c"># Everything that will run.</span>
+  <span class="pl-k">end</span>
+
+  <span class="pl-k">def</span> <span class="pl-en">after</span>
+    <span class="pl-c"># This is the place to run clean-up code.</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span>
+<span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
 
 <h3>
-<a name="mailer-templates" class="anchor" href="#mailer-templates"><span class="octicon octicon-link"></span></a>Mailer Templates</h3>
+<a id="mailer-templates" class="anchor" href="#mailer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mailer Templates</h3>
 
-<p>Emails are simple txt files or limited HTML files, depending on the type of format being used. Cartero allows to build and tempaltes both formats. In order to allow complex templating we use erb ruby gem, also used in many projects like Sinatra, Rails, etc.</p>
+<p>Emails are simple txt files or limited HTML files, depending on the format being used. Cartero allows complex templating through the erb ruby library and a CLI interface to help build and template both formats.</p>
 
-<p>Files can be extremely customized given erb allows for programatically edits on run time. Additionally we add an encrypted self[:payload] to each email template that allows Cartero to indentify each specific entity regardless. Last, but not least, this payload is encrypted using a key that is randomly generated and only exists on the Cartero config directory, allowing attackers to keep data secure and away from detection. </p>
+<p>Files can be extensively customized for the campaign through erb which provides dynamic substitution and programmatic decisions at run time.</p>
+
+<p>Another important feature is the encrypted self[:payload] that should be added in each email template which allows Cartero to identify the source entity regardless of multiple forwards or clicks. This small payload is encrypted using a randomly generated key allowing attackers to keep their source data secure and away from detection.</p>
 
 <p><strong>SAMPLE DATA FILE</strong></p>
 
-<div class="highlight highlight-json"><pre><span class="p">[{</span>
-    <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"johndoe@gmail.com"</span><span class="p">,</span>
-    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"John Doe"</span>
-<span class="p">},</span> <span class="p">{</span>
-    <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"gh@gmail.com"</span><span class="p">,</span>
-    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"Gas Hill"</span>
-<span class="p">},</span> <span class="p">{</span>
-    <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"johndoe@hotmail.com"</span><span class="p">,</span>
-    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"John Doe 2"</span>
-<span class="p">},</span> <span class="p">{</span>
-    <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"janedoe@hotmail.com"</span><span class="p">,</span>
-    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"Jane Doe - Hotmail"</span><span class="p">,</span>
-    <span class="nt">"subject"</span><span class="p">:</span> <span class="s2">"Hotmail Test 123"</span>
-<span class="p">}]</span>
-</pre></div>
+<div class="highlight highlight-json"><pre>[{
+    <span class="pl-s"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>johndoe@gmail.com<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>John Doe<span class="pl-pds">"</span></span>
+}, {
+    <span class="pl-s"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>gh@gmail.com<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Gas Hill<span class="pl-pds">"</span></span>
+}, {
+    <span class="pl-s"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>johndoe@hotmail.com<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>John Doe 2<span class="pl-pds">"</span></span>
+}, {
+    <span class="pl-s"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>janedoe@hotmail.com<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Jane Doe - Hotmail<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>subject<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Hotmail Test 123<span class="pl-pds">"</span></span>
+}]</pre></div>
 
 <p><strong>HTML SAMPLE TEMPLATE</strong></p>
 
-<div class="highlight highlight-html"><pre><span class="nt">&lt;html&gt;</span>
-<span class="nt">&lt;body&gt;</span>
-<span class="nt">&lt;h3&gt;</span> Hello Spear Phishing World <span class="err">&lt;</span>%= self[:name] %&gt;,<span class="nt">&lt;/h3&gt;</span>
-<span class="nt">&lt;p&gt;</span> This is an automated email to your email <span class="err">&lt;</span>%= self[:email] %&gt;.<span class="nt">&lt;p&gt;</span>
-<span class="err">&lt;</span>% if self[:ports] %&gt;
-    <span class="err">&lt;</span>% self[:ports].each do |port| %&gt;
-        <span class="nt">&lt;img</span> <span class="na">alt=</span><span class="s">""</span> <span class="na">width=</span><span class="s">"1"</span> <span class="na">height=</span><span class="s">"1"</span> <span class="na">border=</span><span class="s">"0"</span> <span class="na">style=</span><span class="s">"height:1px !important;width:1px !important;border-width:0 !important;margin-top:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !important;padding-top:0 !important;padding-bottom:0 !important;padding-right:0 !important;padding-left:0 !important;"</span> <span class="na">src=</span><span class="s">"http://localhost:&lt;%= port %&gt;/image?key=&lt;%= self[:payload] %&gt;"</span><span class="nt">&gt;</span>
-    <span class="err">&lt;</span>% end %&gt;
-<span class="err">&lt;</span>% end %&gt;
-<span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
-
+<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">html</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;
+&lt;<span class="pl-ent">h3</span>&gt; Hello Spear Phishing World &lt;%= self[:name] %&gt;,&lt;/<span class="pl-ent">h3</span>&gt;
+&lt;<span class="pl-ent">p</span>&gt; This is an automated email to your email &lt;%= self[:email] %&gt;.&lt;<span class="pl-ent">p</span>&gt;
+&lt;% if self[:ports] %&gt;
+    &lt;% self[:ports].each do |port| %&gt;
+        &lt;<span class="pl-ent">img</span> <span class="pl-e">alt</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> <span class="pl-e">width</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">height</span>=<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span> <span class="pl-e">border</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>height:1px !important;width:1px !important;border-width:0 !important;margin-top:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !important;padding-top:0 !important;padding-bottom:0 !important;padding-right:0 !important;padding-left:0 !important;<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://localhost:&lt;%= port %&gt;/image?key=&lt;%= self[:payload] %&gt;<span class="pl-pds">"</span></span>&gt;
+    &lt;% end %&gt;
+&lt;% end %&gt;
+&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;
 </pre></div>
 
 <p><strong>TEXT SAMPLE TEMPLATE</strong></p>
 
-<div class="highlight highlight-txt"><pre>Hola <%= self[:name] %>,
+<pre lang="txt"><code>Hola &lt;%= self[:name] %&gt;,
 This email needs to be displayed as HTML.
-This is an automated email to your email<%= self[:email] %>.
+This is an automated email to your email&lt;%= self[:email] %&gt;.
 In addition, this email can also be displayed securely
-on http://192.168.1.216:8080/click?key=<%= self[:payload] %>
+on http://192.168.1.216:8080/click?key=&lt;%= self[:payload] %&gt;
 
 cheers,
 
-<%= self[:from_name] %>
+&lt;%= self[:from_name] %&gt;
 
-</pre></div>
-
-<h3>
-<a name="servers-1" class="anchor" href="#servers-1"><span class="octicon octicon-link"></span></a>Servers</h3>
-
-<p>Servers can be managed using the Cartero Servers command, which allows to add, edit and delete servers.
-Additionally, anyone can easily create them manually and store them in <em>~/.cartero/servers/*.json</em></p>
-
-<div class="highlight highlight-json"><pre><span class="p">{</span>
-    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"gmail"</span><span class="p">,</span>
-    <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"smtp"</span><span class="p">,</span>
-    <span class="nt">"options"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">"address"</span><span class="p">:</span> <span class="s2">"smtp.yourserver.com"</span><span class="p">,</span>
-        <span class="nt">"port"</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
-        <span class="nt">"user_name"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span>
-        <span class="nt">"password"</span><span class="p">:</span> <span class="s2">"password"</span><span class="p">,</span>
-        <span class="nt">"authentication"</span><span class="p">:</span> <span class="s2">"plain"</span><span class="p">,</span>
-        <span class="nt">"domain"</span><span class="p">:</span> <span class="s2">"localhost.localdomain"</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
+</code></pre>
 
 <h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a id="servers-1" class="anchor" href="#servers-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Servers</h3>
 
-<p><a href="https://github.com/FreedomCoder" class="user-mention">@FreedomCoder</a></p>
+<p>Servers can be managed using the Servers command, which provides the ability to add, edit and delete servers.
+Note: Servers can be manually edited in <em>~/.cartero/servers/*.json</em></p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<h4>
+<a id="smtp" class="anchor" href="#smtp" aria-hidden="true"><span class="octicon octicon-link"></span></a>smtp</h4>
 
-<p><a href="https://github.com/Section9Labs/Cartero/issues">https://github.com/Section9Labs/Cartero/issues</a></p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/Section9Labs">Section9Labs</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>gmail<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>smtp<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>options<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>address<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>smtp.yourserver.com<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>port<span class="pl-pds">"</span></span>: <span class="pl-c1">25</span>,
+        <span class="pl-s"><span class="pl-pds">"</span>user_name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>authentication<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>plain<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>domain<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>localhost.localdomain<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<h4>
+<a id="linkedin-1" class="anchor" href="#linkedin-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>linkedin</h4>
+
+<div class="highlight highlight-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>linkedin<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>linkedin<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>options<span class="pl-pds">"</span></span>: {
+      <span class="pl-s"><span class="pl-pds">"</span>api_access<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>api_access<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>api_secret<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>api_secret<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>oauth_token<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>oauth_token<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>oauth_secret<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>oauth_secret<span class="pl-pds">"</span></span>
+    }
+}</pre></div>
+
+<h4>
+<a id="webmail" class="anchor" href="#webmail" aria-hidden="true"><span class="octicon octicon-link"></span></a>webmail</h4>
+
+<div class="highlight highlight-json"><pre>{
+  <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>webmail-sample<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>webmail<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>options<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>url<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>http://www.send-email.com/data/send/email<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>method<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>POST<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>cookies<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>sdajsda09s7das923i3j2l131;21381903810<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>headers<span class="pl-pds">"</span></span>: {
+      <span class="pl-s"><span class="pl-pds">"</span>x-forward<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>asdadadasad<span class="pl-pds">"</span></span>
+    }
+  },
+  <span class="pl-s"><span class="pl-pds">"</span>confirmation<span class="pl-pds">"</span></span> : <span class="pl-c1">null</span>
+}</pre></div>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/Section9Labs/Cartero/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/Section9Labs/Cartero/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/Section9Labs/Cartero"></a> is maintained by <a href="https://github.com/Section9Labs">Section9Labs</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+
+  
   </body>
 </html>
