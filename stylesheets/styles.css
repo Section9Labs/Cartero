@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
 .img-circle {
+  margin-left: 25px;
   -webkit-border-radius: 500px;
   -moz-border-radius: 500px;
   border-radius: 500px;
@@ -38,6 +39,7 @@ h1 {
 
 p#subtitle {
   font: 20px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-top: -20px;
 }
 
 h2 {
