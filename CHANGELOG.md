@@ -96,3 +96,7 @@
 #### 10-9-15
 - smbrelayx.py support allowing remote shell attacks and replay attacks using new French Kiss Attack.
 
+#### 9-4-17
+- Migrating to mongoid, since mongomapper no longer works. 
+- general small fixes. 
+

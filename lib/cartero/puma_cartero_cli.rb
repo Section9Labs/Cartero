@@ -12,7 +12,7 @@ module Puma
       ::Cartero::DB.start
       super(argv)
     end
-    
+
     def options
 			@conf.options
     end

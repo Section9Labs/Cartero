@@ -2,23 +2,23 @@
 # Documentation for Credential
 class Credential
   include MongoMapper::Document
+  include Mongoid::Timestamps
 
-  key :ip, 					String
-  key :location,    Hash
-  key :port, 				String
-  key :domain,			String
-  key :path,				String
-  key :user_agent, 	String
-  key :ua_comp,			String
-  key :ua_os, 			String
-  key :ua_browser, 	String
-  key :ua_engine,		String
-  key :ua_platform,	String
-  key :ua_lang,			String
-  key :forwarded, 	Boolean
-  key :data, 				Hash
-  key :username, 		String
-  key :password, 		String
+  field :ip, 					type: String
+  field :location,    type: Hash
+  field :port, 				type: String
+  field :domain,			type: String
+  field :path,				type: String
+  field :user_agent, 	type: String
+  field :ua_comp,			type: String
+  field :ua_os, 			type: String
+  field :ua_browser, 	type: String
+  field :ua_engine,		type: String
+  field :ua_platform,	type: String
+  field :ua_lang,			type: String
+  field :forwarded, 	type: Boolean
+  field :data, 				type: Hash
+  field :username, 		type: String
+  field :password, 		type: String
 
-  timestamps!
 end

@@ -1,13 +1,15 @@
 #encoding: utf-8
 # Documentation for Person
 class Person
-  include MongoMapper::Document
+  include Mongoid::Document
+  include Mongoid::Timestamps
 
-  key :email, String, :unique => true
-  key :campaigns, Array
-  key :responded, Array
-  key :credentials, Array
+  field :email, type: String
+  field :campaigns, type: Array
+  field :responded, type: Array
+  field :credentials, type: Array
 
-  timestamps!
-  many :hits
+  validates_uniqueness_of :email
+    
+  has_many :hits
 end

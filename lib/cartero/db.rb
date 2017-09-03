@@ -22,7 +22,7 @@ module Cartero
 
     def self.stop
       #$stdout.puts "Stopping Mongodb"
-      MongoMapper.connection['admin'].command(:shutdown => 1)
+      Mongoid.connection['admin'].command(:shutdown => 1)
       $stdout.puts "" if RUBY_PLATFORM =~ /mingw|mswin/
     rescue StandardError
       $stderr.puts "Looks like there is not an establish connection to shutdown."

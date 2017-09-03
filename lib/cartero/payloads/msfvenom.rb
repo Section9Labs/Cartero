@@ -13,7 +13,7 @@ class MSFVenom < ::Cartero::Payload
     license: "LGPL",
     references: ["https://section9labs.github.io/Cartero"]
   )
-  
+
   def initialize
     super do |opts|
       opts.on("-W", "--webserver WEBSERVER_FOLDER", String,

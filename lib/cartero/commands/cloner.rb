@@ -79,6 +79,7 @@ class Cloner < ::Cartero::Command
   def setup
     require 'erb'
     require 'uri'
+    require 'fileutils'
 
     if @options.url.nil?
       raise StandardError, "A url [--url] must be provided"
@@ -125,6 +126,7 @@ class Cloner < ::Cartero::Command
     name = webserver.underscore
     Dir.mkdir path + "/"  + name unless File.directory?(path + "/"  + name)
     Dir.mkdir path + "/"  + name + "/static" unless File.directory? path + "/"  + name + "/static"
+    Dir.mkdir path + "/"  + name + "/static/js" unless File.directory? path + "/"  + name + "/static/js"
     Dir.mkdir path + "/"  + name + "/views" unless File.directory? path + "/"  + name + "/views"
   end
 
@@ -166,6 +168,14 @@ class Cloner < ::Cartero::Command
     }
 
     @domain_info[:reverse_proxy] = [] if reverse_proxy
+
+    # Add our custom Javascript
+    add_javascript_inject(page)
+    # generate javascript file.
+    FileUtils.cp(
+        File.dirname(__FILE__) + "/../../../templates/webserver/loader_template.js",
+        @options.path + '/' + webserver.underscore + '/static/js/loader.js'
+      )
 
     # Create Index.erb
     if wget
@@ -219,6 +229,10 @@ class Cloner < ::Cartero::Command
     end
   end
 
+  def add_javascript_inject(page)
+    page.search("//script")[0].add_next_sibling("<script src=\"/js/loader.js\"></script>")
+  end
+
   def create_index(page)
     zurl = URI.parse(url)
 
@@ -248,6 +262,7 @@ class Cloner < ::Cartero::Command
       end
       form.value = path
     end
+
 
     f = File.new(@options.path + '/' + webserver.underscore + '/views/index.erb', "w")
     if page.encoding != ""

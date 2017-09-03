@@ -8,7 +8,7 @@ class BeefConsole < ::Cartero::Command
   include CommandLineReporter
 
   description(
-    name: " Beef Administration Console",
+    name: "Beef Administration Console",
     description: "Cartero Console based Admnistration Interface for Beef API. It allows users to interact with the captured data (i.e. hooks, logs, modules, commands, dns, etc.)",
     author: ['Matias P. Brutti <matias [©] section9labs.com>'],
     type: "Admin",

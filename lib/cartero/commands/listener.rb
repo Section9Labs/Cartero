@@ -118,9 +118,15 @@ class Listener < ::Cartero::Command
     # This is a constant given we use PUMA. So far no other option.
     @web_server.set :server, :puma
     @web_server.configure do
-      @options.mongodb.nil? ? m = ["localhost", "27017"] : m = @options.mongodb.split(":")
-      ::MongoMapper.connection = ::Mongo::Connection.new(m[0], m[1].to_i)
-      ::MongoMapper.database = "Cartero"
+      @options.mongodb.nil? ? m = "localhost:27017" : m = @options.mongodb
+      Mongoid.configure do |config|
+        config.sessions = { 
+          :default => {
+            :hosts => [m], 
+            :database => "Cartero"
+          }
+        }
+      end
     end
 
     # set webserver verbosity and/or debug state

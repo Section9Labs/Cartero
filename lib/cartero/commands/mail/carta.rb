@@ -12,7 +12,7 @@ class Mailer < Command
     license: "LGPL",
     references: ["https://section9labs.github.io/Cartero"]
   )
-  
+
   def initialize
     super do |opts|
       opts.on("-D", "--data DATA_FILE", String,

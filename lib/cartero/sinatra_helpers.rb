@@ -125,7 +125,7 @@ module SinatraHelpers
       begin
         @person = Person.new(:email => @data[:email])
         @person.save!
-      rescue MongoMapper::DocumentNotValid
+      rescue Mongoid::Errors::Validations
         @person = Person.where(:email => @data[:email]).first
       end
     end

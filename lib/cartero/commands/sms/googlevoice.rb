@@ -15,7 +15,7 @@ class GoogleVoice < ::Cartero::Command
       "http://voice.google.com"
       ]
   )
-  
+
   def initialize
     super do |opts|
       opts.on("-D", "--data DATA_FILE", String,

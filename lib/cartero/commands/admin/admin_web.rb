@@ -76,11 +76,18 @@ class AdminWeb < ::Cartero::Command
     @web_server.set :server, :puma
     @web_server.set :views, File.expand_path("../../../../../data/web/admin/views", __FILE__)
     @web_server.set :public_folder, File.expand_path("../../../../../data/web/admin/static", __FILE__)
-    @web_server.configure do
-      @options.mongodb.nil? ? m = ["localhost", "27017"] : m = @options.mongodb.split(":")
-      MongoMapper.connection = ::Mongo::Connection.new(m[0], m[1].to_i)
-      MongoMapper.database = "Cartero"
-    end
+
+     @web_server.configure do
+       @options.mongodb.nil? ? m = "localhost:27017" : m = @options.mongodb
+       Mongoid.configure do |config|
+         config.sessions = { 
+           :default => {
+             :hosts => [m], 
+             :database => "Cartero"
+           }
+         }
+       end
+     end
 
     @web_server.set :beef, @options.beef
 

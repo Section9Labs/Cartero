@@ -5,11 +5,12 @@ gem "sinatra-contrib"
 gem "rack-reverse-proxy"
 gem "puma"
 gem "rack"
+gem "mongo"
+gem "mongoid"
 # mongo_mapper new requirements
 gem 'activemodel-serializers-xml'
 gem 'active_model_serializers'
 # 
-gem "mongo_mapper"
 gem "bson_ext"
 gem "mongo"
 

