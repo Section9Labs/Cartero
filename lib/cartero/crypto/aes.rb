@@ -14,11 +14,11 @@ module CryptoBox
     elsif File.exist?(Cartero::SecretMaterial)
       # Read data from JSON File
       m = JSON.parse(File.read(::Cartero::SecretMaterial),{:symbolize_names => true})
-      self.secret_box = OpenSSL::Cipher::Cipher.new(ALGORITHM)
+      self.secret_box = OpenSSL::Cipher.new(ALGORITHM)
       self.key        = Base64.decode64(m[:key])
       self.nonce 			= Base64.decode64(m[:nonce]).strip
     else
-      @@secret_box = OpenSSL::Cipher::Cipher.new(ALGORITHM)
+      @@secret_box = OpenSSL::Cipher.new(ALGORITHM)
       @@key = Digest::SHA256.hexdigest(@@secret_box.random_key)
       @@iv=  @@secret_box.random_iv
       # Storing keys on file.

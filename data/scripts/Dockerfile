@@ -17,8 +17,7 @@ RUN mkdir -p /usr/local/share/Cartero && \
     echo "export EDITOR=vim" >> ~/.bash_profile && \
     cd /usr/local/share/Cartero && \
     bundle install && \
-    echo "#!/bin/bash 
-/usr/local/share/Cartero/bin/cartero \"\$@\"" > /usr/local/bin/cartero && \
+    echo -e "#\0041/bin/bash\n/usr/local/share/Cartero/bin/cartero \"\$@\"" > /usr/local/bin/cartero && \
     chmod +x /usr/local/bin/cartero && \
     echo "[[ -s /usr/local/share/Cartero/data/scripts/CarteroComplete.sh ]] && source /usr/local/share/Cartero/data/scripts/CarteroComplete.sh" >> ~/.bash_profile
 

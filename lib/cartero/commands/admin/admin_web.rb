@@ -79,14 +79,12 @@ class AdminWeb < ::Cartero::Command
 
      @web_server.configure do
        @options.mongodb.nil? ? m = "localhost:27017" : m = @options.mongodb
-       Mongoid.configure do |config|
-         config.sessions = { 
-           :default => {
-             :hosts => [m], 
-             :database => "Cartero"
-           }
-         }
-       end
+       Mongoid.load_configuration(clients: {
+        default: {
+          database: 'cartero',
+          hosts: [ m ]
+        }
+      })
      end
 
     @web_server.set :beef, @options.beef

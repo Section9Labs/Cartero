@@ -119,14 +119,12 @@ class Listener < ::Cartero::Command
     @web_server.set :server, :puma
     @web_server.configure do
       @options.mongodb.nil? ? m = "localhost:27017" : m = @options.mongodb
-      Mongoid.configure do |config|
-        config.sessions = { 
-          :default => {
-            :hosts => [m], 
-            :database => "Cartero"
-          }
+      Mongoid.load_configuration(clients: {
+        default: {
+          database: 'cartero',
+          hosts: [ m ]
         }
-      end
+      })
     end
 
     # set webserver verbosity and/or debug state
