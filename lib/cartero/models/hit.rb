@@ -1,7 +1,7 @@
 #encoding: utf-8
 # Documentation for Hit
 class Hit
-  include MongoMapper::Document
+  include Mongoid::Document
   include Mongoid::Timestamps
 
   field :ip, 					type: String

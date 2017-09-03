@@ -1,7 +1,7 @@
 #encoding: utf-8
 # Documentation for Credential
 class Credential
-  include MongoMapper::Document
+  include Mongoid::Document
   include Mongoid::Timestamps
 
   field :ip, 					type: String
