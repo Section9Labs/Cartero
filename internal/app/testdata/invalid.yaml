@@ -1,0 +1,29 @@
+metadata:
+  name: ""
+  owner: ""
+  audience: ""
+  region: Global
+  risk_level: high
+  deadline: 08/14/2026
+
+objectives: []
+
+channels:
+  - type: sms
+    template: ""
+    goal: ""
+
+assets: []
+
+safeguards:
+  dry_run: false
+  capture_credentials: true
+  allow_external_links: true
+  require_manager_approval: false
+  approval_ticket: ""
+
+timeline:
+  - name: ""
+    duration: 1d
+    success_metric: ""
+    actions: []

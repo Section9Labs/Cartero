@@ -1,8 +1,0 @@
-# encoding: utf-8
-class <%=self.webserver %> < Sinatra::Base
-  get "<%= self.request_path || "/warning.hta" %>" do
-    content_type "application/hta"
-    process_info
-    erb :hta
-  end
-end

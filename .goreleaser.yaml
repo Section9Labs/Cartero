@@ -1,0 +1,44 @@
+project_name: cartero
+
+before:
+  hooks:
+    - go mod tidy
+    - go test ./...
+
+builds:
+  - id: cartero
+    main: ./cmd/cartero
+    binary: cartero
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X github.com/Section9Labs/Cartero/internal/version.Version={{ .Version }}
+      - -X github.com/Section9Labs/Cartero/internal/version.Commit={{ .Commit }}
+      - -X github.com/Section9Labs/Cartero/internal/version.Date={{ .Date }}
+
+archives:
+  - id: default
+    formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+
+checksum:
+  name_template: checksums.txt
+
+release:
+  draft: false
+  prerelease: auto
+
+changelog:
+  use: git

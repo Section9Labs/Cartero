@@ -1,0 +1,55 @@
+metadata:
+  name: Q2 awareness rehearsal
+  owner: Security Enablement
+  audience: Customer Support
+  region: Global
+  risk_level: medium
+  deadline: 2026-06-30
+
+objectives:
+  - Measure suspicious-message reporting rate
+  - Verify escalation routing to the security desk
+  - Check follow-up training coverage for missed reports
+
+channels:
+  - type: email
+    template: awareness-baseline
+    goal: Exercise report-and-escalate behavior
+  - type: chat
+    template: manager-follow-up
+    goal: Reinforce approval verification
+
+assets:
+  - name: employee-guide
+    type: PDF
+    source: internal://security/guide
+  - name: report-playbook
+    type: URL
+    source: internal://security/reporting
+
+safeguards:
+  dry_run: true
+  capture_credentials: false
+  allow_external_links: false
+  require_manager_approval: true
+  approval_ticket: SEC-1428
+
+timeline:
+  - name: kickoff
+    duration: 2d
+    success_metric: Stakeholders approve exercise scope
+    actions:
+      - Review templates with enablement
+      - Confirm reporting mailbox ownership
+  - name: rehearsal
+    duration: 3d
+    success_metric: Pilot segment completes dry run
+    actions:
+      - Launch to pilot audience
+      - Collect reports and response timing
+  - name: debrief
+    duration: 2d
+    success_metric: Findings documented and assigned
+    actions:
+      - Summarize observations
+      - Hand off remediation items

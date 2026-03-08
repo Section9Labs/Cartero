@@ -1,0 +1,6 @@
+name: local-preview
+version: 1.0.0
+kind: renderer
+mode: local-only
+safe: true
+description: Writes preview data into a local review sink for operator approval.

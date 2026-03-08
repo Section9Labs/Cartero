@@ -1,0 +1,43 @@
+metadata:
+  name: Quarterly rehearsal
+  owner: Security Operations
+  audience: Finance
+  region: North America
+  risk_level: medium
+  deadline: 2026-08-14
+
+objectives:
+  - Measure report volume
+  - Verify escalation timing
+
+channels:
+  - type: email
+    template: invoice-awareness
+    goal: Encourage reporting
+  - type: chat
+    template: manager-verification
+    goal: Verify approvals
+
+assets:
+  - name: reporting-guide
+    type: URL
+    source: internal://security/report
+
+safeguards:
+  dry_run: true
+  capture_credentials: false
+  allow_external_links: false
+  require_manager_approval: true
+  approval_ticket: SEC-2211
+
+timeline:
+  - name: kickoff
+    duration: 2d
+    success_metric: Scope approved
+    actions:
+      - Review audience selection
+  - name: execution
+    duration: 3d
+    success_metric: Reports triaged inside SLA
+    actions:
+      - Launch to pilot
