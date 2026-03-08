@@ -144,11 +144,17 @@ func TestPluginListShowsWarningsWithoutFailing(t *testing.T) {
 
 	root := t.TempDir()
 	mustWriteFile(t, filepath.Join(root, "plugins", "nested", "valid.yml"), ""+
+		"schema_version: v1\n"+
 		"name: nested-preview\n"+
 		"version: 1.0.0\n"+
 		"kind: renderer\n"+
 		"mode: local-only\n"+
 		"safe: true\n"+
+		"capabilities:\n"+
+		"  - preview.render\n"+
+		"trust:\n"+
+		"  level: reviewed\n"+
+		"  review_required: false\n"+
 		"description: Nested manifest\n")
 	mustWriteFile(t, filepath.Join(root, "plugins", "broken.yaml"), "name: [\n")
 
@@ -178,11 +184,17 @@ func TestDoctorWarnsOnPluginDiscoveryIssues(t *testing.T) {
 	mustWriteFile(t, filepath.Join(root, ".goreleaser.yaml"), "project_name: cartero\n")
 	mustWriteFile(t, filepath.Join(root, "scripts", "smoke.sh"), "#!/usr/bin/env bash\n")
 	mustWriteFile(t, filepath.Join(root, "plugins", "valid.yaml"), ""+
+		"schema_version: v1\n"+
 		"name: valid\n"+
 		"version: 1.0.0\n"+
 		"kind: renderer\n"+
 		"mode: local-only\n"+
 		"safe: true\n"+
+		"capabilities:\n"+
+		"  - preview.render\n"+
+		"trust:\n"+
+		"  level: reviewed\n"+
+		"  review_required: false\n"+
 		"description: Valid plugin\n")
 	mustWriteFile(t, filepath.Join(root, "plugins", "broken.yml"), "name: [\n")
 

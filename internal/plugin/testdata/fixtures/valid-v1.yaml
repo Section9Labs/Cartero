@@ -9,4 +9,4 @@ capabilities:
 trust:
   level: first-party
   review_required: false
-description: Writes preview data into a local review sink for operator approval.
+description: Writes previews into a local review sink.

@@ -170,7 +170,16 @@ func (r Renderer) DoctorReport(report doctor.Report) string {
 func (r Renderer) Plugins(manifests []plugin.Manifest, warnings []plugin.Warning) string {
 	lines := make([]string, 0, len(manifests))
 	for _, manifest := range manifests {
-		lines = append(lines, fmt.Sprintf("%s %s | kind=%s | mode=%s | safe=%t", manifest.Name, manifest.Version, manifest.Kind, manifest.Mode, manifest.Safe))
+		lines = append(lines, fmt.Sprintf(
+			"%s %s | kind=%s | mode=%s | trust=%s | safe=%t | capabilities=%s",
+			manifest.Name,
+			manifest.Version,
+			manifest.Kind,
+			manifest.Mode,
+			manifest.Trust.Level,
+			manifest.Safe != nil && *manifest.Safe,
+			strings.Join(manifest.Capabilities, ","),
+		))
 		if manifest.Description != "" {
 			lines = append(lines, "  "+manifest.Description)
 		}

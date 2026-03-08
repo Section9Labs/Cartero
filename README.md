@@ -5,7 +5,7 @@ This refactor replaces the abandoned scaffold with:
 
 - a polished terminal experience powered by Cobra and Lip Gloss
 - safe-by-default campaign validation and preview commands
-- plugin discovery for local exercise integrations
+- schema-validated plugin discovery for local exercise integrations
 - unit and CLI tests with a smoke-test workflow
 - reproducible packaging with GoReleaser, Docker, and GitHub Actions
 

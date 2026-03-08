@@ -1,0 +1,12 @@
+schema_version: v2
+name: future-preview
+version: 2.0.0
+kind: renderer
+mode: local-only
+safe: true
+capabilities:
+  - preview.render
+trust:
+  level: reviewed
+  review_required: false
+description: Forward compatibility probe.

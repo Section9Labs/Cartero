@@ -1,0 +1,6 @@
+name: legacy-preview
+version: 1.0.0
+kind: renderer
+mode: local-only
+safe: true
+description: Legacy manifest without schema metadata.

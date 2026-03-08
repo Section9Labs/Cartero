@@ -14,13 +14,21 @@ import (
 )
 
 type Manifest struct {
-	Name        string `yaml:"name"`
-	Version     string `yaml:"version"`
-	Kind        string `yaml:"kind"`
-	Mode        string `yaml:"mode"`
-	Safe        bool   `yaml:"safe"`
-	Description string `yaml:"description"`
-	Path        string `yaml:"-"`
+	SchemaVersion string   `yaml:"schema_version"`
+	Name          string   `yaml:"name"`
+	Version       string   `yaml:"version"`
+	Kind          string   `yaml:"kind"`
+	Mode          string   `yaml:"mode"`
+	Safe          *bool    `yaml:"safe"`
+	Capabilities  []string `yaml:"capabilities"`
+	Trust         Trust    `yaml:"trust"`
+	Description   string   `yaml:"description"`
+	Path          string   `yaml:"-"`
+}
+
+type Trust struct {
+	Level          string `yaml:"level"`
+	ReviewRequired *bool  `yaml:"review_required"`
 }
 
 type Warning struct {
@@ -115,6 +123,9 @@ func loadManifest(path string) (Manifest, error) {
 	decoder.KnownFields(true)
 	if err := decoder.Decode(&manifest); err != nil {
 		return manifest, fmt.Errorf("decode manifest: %w", err)
+	}
+	if err := ValidateManifest(manifest); err != nil {
+		return manifest, err
 	}
 
 	manifest.Path = path

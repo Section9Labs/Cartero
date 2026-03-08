@@ -12,18 +12,30 @@ func TestDiscoverSupportsNestedManifestsAndWarnings(t *testing.T) {
 	root := t.TempDir()
 
 	mustWriteFile(t, filepath.Join(root, "plugins", "alpha.yaml"), ""+
+		"schema_version: v1\n"+
 		"name: alpha\n"+
 		"version: 1.0.0\n"+
 		"kind: renderer\n"+
 		"mode: local-only\n"+
 		"safe: true\n"+
+		"capabilities:\n"+
+		"  - preview.render\n"+
+		"trust:\n"+
+		"  level: reviewed\n"+
+		"  review_required: false\n"+
 		"description: Alpha plugin\n")
 	mustWriteFile(t, filepath.Join(root, "plugins", "nested", "beta.yml"), ""+
+		"schema_version: v1\n"+
 		"name: beta\n"+
 		"version: 1.1.0\n"+
 		"kind: exporter\n"+
 		"mode: local-only\n"+
 		"safe: true\n"+
+		"capabilities:\n"+
+		"  - results.export\n"+
+		"trust:\n"+
+		"  level: reviewed\n"+
+		"  review_required: false\n"+
 		"description: Beta plugin\n")
 	mustWriteFile(t, filepath.Join(root, "plugins", "broken.yaml"), "name: [\n")
 
