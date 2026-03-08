@@ -229,11 +229,11 @@ func newPluginCmd(streams IOStreams, opts *rootOptions) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			manifests, err := plugin.Discover(filepath.Join(root, "plugins"))
+			discovery, err := plugin.Discover(filepath.Join(root, "plugins"))
 			if err != nil {
 				return err
 			}
-			fmt.Fprintln(streams.Out, ui.NewRenderer(opts.plain).Plugins(manifests))
+			fmt.Fprintln(streams.Out, ui.NewRenderer(opts.plain).Plugins(discovery.Manifests, discovery.Warnings))
 			return nil
 		},
 	})

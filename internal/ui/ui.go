@@ -167,7 +167,7 @@ func (r Renderer) DoctorReport(report doctor.Report) string {
 	}, "\n\n")
 }
 
-func (r Renderer) Plugins(manifests []plugin.Manifest) string {
+func (r Renderer) Plugins(manifests []plugin.Manifest, warnings []plugin.Warning) string {
 	lines := make([]string, 0, len(manifests))
 	for _, manifest := range manifests {
 		lines = append(lines, fmt.Sprintf("%s %s | kind=%s | mode=%s | safe=%t", manifest.Name, manifest.Version, manifest.Kind, manifest.Mode, manifest.Safe))
@@ -179,10 +179,19 @@ func (r Renderer) Plugins(manifests []plugin.Manifest) string {
 		lines = append(lines, "No plugins discovered")
 	}
 
-	return strings.Join([]string{
+	sections := []string{
 		r.banner("Plugins", "Installed local manifests"),
 		r.block("Registry", lines),
-	}, "\n\n")
+	}
+	if len(warnings) > 0 {
+		warningLines := make([]string, 0, len(warnings))
+		for _, warning := range warnings {
+			warningLines = append(warningLines, fmt.Sprintf("%s %s: %s", r.statusText("warn"), warning.Path, warning.Message))
+		}
+		sections = append(sections, r.block("Warnings", warningLines))
+	}
+
+	return strings.Join(sections, "\n\n")
 }
 
 func (r Renderer) Version(version, commit, date string) string {

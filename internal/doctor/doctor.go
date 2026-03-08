@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strings"
 
 	"github.com/Section9Labs/Cartero/internal/plugin"
 )
@@ -71,7 +72,7 @@ func Run(root string) Report {
 		"add a reproducible smoke test to verify the CLI end-to-end",
 	))
 
-	plugins, pluginErr := plugin.Discover(filepath.Join(root, "plugins"))
+	discovery, pluginErr := plugin.Discover(filepath.Join(root, "plugins"))
 	if pluginErr != nil {
 		report.Checks = append(report.Checks, Check{
 			Name:   "Plugin manifests",
@@ -79,18 +80,25 @@ func Run(root string) Report {
 			Detail: pluginErr.Error(),
 			Hint:   "fix malformed files in plugins/",
 		})
-	} else if len(plugins) == 0 {
+	} else if len(discovery.Manifests) == 0 && len(discovery.Warnings) == 0 {
 		report.Checks = append(report.Checks, Check{
 			Name:   "Plugin manifests",
 			Status: StatusWarn,
 			Detail: "no plugins discovered",
 			Hint:   "drop one or more YAML manifests into plugins/",
 		})
+	} else if len(discovery.Warnings) > 0 {
+		report.Checks = append(report.Checks, Check{
+			Name:   "Plugin manifests",
+			Status: StatusWarn,
+			Detail: formatDiscoveryDetail(discovery),
+			Hint:   "fix malformed files in plugins/ without blocking healthy manifests",
+		})
 	} else {
 		report.Checks = append(report.Checks, Check{
 			Name:   "Plugin manifests",
 			Status: StatusPass,
-			Detail: pluralize(len(plugins), "manifest"),
+			Detail: formatDiscoveryDetail(discovery),
 		})
 	}
 
@@ -130,4 +138,13 @@ func pluralize(count int, noun string) string {
 	}
 
 	return fmt.Sprintf("%d %ss", count, noun)
+}
+
+func formatDiscoveryDetail(discovery plugin.Discovery) string {
+	parts := []string{pluralize(len(discovery.Manifests), "manifest")}
+	if len(discovery.Warnings) > 0 {
+		parts = append(parts, pluralize(len(discovery.Warnings), "warning"))
+	}
+
+	return strings.Join(parts, ", ")
 }

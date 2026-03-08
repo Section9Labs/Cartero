@@ -2,10 +2,13 @@ package plugin
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 )
@@ -20,33 +23,100 @@ type Manifest struct {
 	Path        string `yaml:"-"`
 }
 
-func Discover(dir string) ([]Manifest, error) {
-	matches, err := filepath.Glob(filepath.Join(dir, "*.yaml"))
+type Warning struct {
+	Path    string
+	Message string
+}
+
+type Discovery struct {
+	Manifests []Manifest
+	Warnings  []Warning
+}
+
+func Discover(dir string) (Discovery, error) {
+	var discovery Discovery
+
+	info, err := os.Stat(dir)
 	if err != nil {
-		return nil, fmt.Errorf("discover plugins: %w", err)
+		if errors.Is(err, os.ErrNotExist) {
+			return discovery, nil
+		}
+		return discovery, fmt.Errorf("discover plugins: %w", err)
+	}
+	if !info.IsDir() {
+		return discovery, fmt.Errorf("discover plugins: %s is not a directory", dir)
 	}
 
-	manifests := make([]Manifest, 0, len(matches))
-	for _, match := range matches {
-		payload, err := os.ReadFile(match)
+	err = filepath.WalkDir(dir, func(path string, d fs.DirEntry, walkErr error) error {
+		if walkErr != nil {
+			discovery.Warnings = append(discovery.Warnings, Warning{
+				Path:    path,
+				Message: walkErr.Error(),
+			})
+			if d != nil && d.IsDir() {
+				return filepath.SkipDir
+			}
+			return nil
+		}
+		if d.IsDir() || !isManifestPath(path) {
+			return nil
+		}
+
+		manifest, err := loadManifest(path)
 		if err != nil {
-			return nil, fmt.Errorf("read plugin manifest %s: %w", match, err)
+			discovery.Warnings = append(discovery.Warnings, Warning{
+				Path:    path,
+				Message: err.Error(),
+			})
+			return nil
 		}
 
-		var manifest Manifest
-		decoder := yaml.NewDecoder(bytes.NewReader(payload))
-		decoder.KnownFields(true)
-		if err := decoder.Decode(&manifest); err != nil {
-			return nil, fmt.Errorf("decode plugin manifest %s: %w", match, err)
-		}
-
-		manifest.Path = match
-		manifests = append(manifests, manifest)
+		discovery.Manifests = append(discovery.Manifests, manifest)
+		return nil
+	})
+	if err != nil {
+		return discovery, fmt.Errorf("discover plugins: %w", err)
 	}
 
-	sort.Slice(manifests, func(i, j int) bool {
-		return manifests[i].Name < manifests[j].Name
+	sort.Slice(discovery.Manifests, func(i, j int) bool {
+		if discovery.Manifests[i].Name == discovery.Manifests[j].Name {
+			return discovery.Manifests[i].Path < discovery.Manifests[j].Path
+		}
+		return discovery.Manifests[i].Name < discovery.Manifests[j].Name
+	})
+	sort.Slice(discovery.Warnings, func(i, j int) bool {
+		if discovery.Warnings[i].Path == discovery.Warnings[j].Path {
+			return discovery.Warnings[i].Message < discovery.Warnings[j].Message
+		}
+		return discovery.Warnings[i].Path < discovery.Warnings[j].Path
 	})
 
-	return manifests, nil
+	return discovery, nil
+}
+
+func isManifestPath(path string) bool {
+	switch strings.ToLower(filepath.Ext(path)) {
+	case ".yaml", ".yml":
+		return true
+	default:
+		return false
+	}
+}
+
+func loadManifest(path string) (Manifest, error) {
+	var manifest Manifest
+
+	payload, err := os.ReadFile(path)
+	if err != nil {
+		return manifest, fmt.Errorf("read manifest: %w", err)
+	}
+
+	decoder := yaml.NewDecoder(bytes.NewReader(payload))
+	decoder.KnownFields(true)
+	if err := decoder.Decode(&manifest); err != nil {
+		return manifest, fmt.Errorf("decode manifest: %w", err)
+	}
+
+	manifest.Path = path
+	return manifest, nil
 }
