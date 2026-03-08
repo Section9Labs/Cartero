@@ -1,0 +1,6 @@
+PLUGINS
+Installed local manifests
+
+Registry
+local-preview 1.0.0 | kind=renderer | mode=local-only | trust=first-party | safe=true | capabilities=preview.render
+  Writes preview data into a local review sink for operator approval.

@@ -61,3 +61,12 @@ description: Writes previews into a local review sink.
 ```bash
 cartero plugin list
 ```
+
+## Conformance workflow
+
+1. add a workspace fixture under `internal/plugin/conformance/testdata/workspaces/<plugin-name>/plugins/`
+2. capture the expected plain-text operator output in `plugin-list.plain.golden`
+3. register the fixture in `internal/plugin/conformance/harness_test.go`
+4. run `go test ./...` to execute manifest validation, fixture loading, and golden output checks
+
+This workflow runs in CI through the normal Go test step, so new plugins inherit the same contract without extra pipeline wiring.
