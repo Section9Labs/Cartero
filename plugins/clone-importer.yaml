@@ -1,0 +1,12 @@
+schema_version: v1
+name: clone-importer
+version: 1.0.0
+kind: importer
+mode: operator-review
+safe: true
+capabilities:
+    - campaign.import
+trust:
+    level: first-party
+    review_required: false
+description: Converts reviewed local messages into safe Cartero campaign drafts.

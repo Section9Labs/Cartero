@@ -1,0 +1,12 @@
+schema_version: v1
+name: audience-sync
+version: 1.0.0
+kind: integration
+mode: operator-review
+safe: true
+capabilities:
+    - audience.sync
+trust:
+    level: first-party
+    review_required: false
+description: Imports audience segments from operator-reviewed local CSV files.

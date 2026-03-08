@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/Section9Labs/Cartero/internal/plugin"
+	"github.com/Section9Labs/Cartero/internal/store"
 )
 
 type Status string
@@ -46,7 +47,7 @@ func Run(root string) Report {
 			Name:   "Go toolchain",
 			Status: StatusFail,
 			Detail: "go is not available on PATH",
-			Hint:   "install Go 1.22+ before building Cartero",
+			Hint:   "install Go 1.23+ before building Cartero",
 		})
 	} else {
 		report.Checks = append(report.Checks, Check{
@@ -56,21 +57,22 @@ func Run(root string) Report {
 		})
 	}
 
-	report.Checks = append(report.Checks, fileCheck(
+	report.Checks = append(report.Checks, optionalFileCheck(
 		"Sample config",
 		filepath.Join(root, "configs", "campaign.example.yaml"),
 		"run `cartero init` to generate a local campaign file",
 	))
-	report.Checks = append(report.Checks, fileCheck(
+	report.Checks = append(report.Checks, optionalFileCheck(
 		"Release config",
 		filepath.Join(root, ".goreleaser.yaml"),
 		"add GoReleaser config for packaged releases",
 	))
-	report.Checks = append(report.Checks, fileCheck(
+	report.Checks = append(report.Checks, optionalFileCheck(
 		"Smoke test script",
 		filepath.Join(root, "scripts", "smoke.sh"),
 		"add a reproducible smoke test to verify the CLI end-to-end",
 	))
+	report.Checks = append(report.Checks, databaseCheck(root))
 
 	discovery, pluginErr := plugin.Discover(filepath.Join(root, "plugins"))
 	if pluginErr != nil {
@@ -132,6 +134,23 @@ func fileCheck(name, path, hint string) Check {
 	}
 }
 
+func optionalFileCheck(name, path, hint string) Check {
+	if _, err := os.Stat(path); err != nil {
+		return Check{
+			Name:   name,
+			Status: StatusWarn,
+			Detail: path + " is missing",
+			Hint:   hint,
+		}
+	}
+
+	return Check{
+		Name:   name,
+		Status: StatusPass,
+		Detail: path,
+	}
+}
+
 func pluralize(count int, noun string) string {
 	if count == 1 {
 		return "1 " + noun
@@ -147,4 +166,22 @@ func formatDiscoveryDetail(discovery plugin.Discovery) string {
 	}
 
 	return strings.Join(parts, ", ")
+}
+
+func databaseCheck(root string) Check {
+	path := store.DatabasePath(root)
+	if _, err := os.Stat(path); err != nil {
+		return Check{
+			Name:   "Workspace database",
+			Status: StatusWarn,
+			Detail: path + " is missing",
+			Hint:   "run `cartero workspace init` to bootstrap the embedded state store",
+		}
+	}
+
+	return Check{
+		Name:   "Workspace database",
+		Status: StatusPass,
+		Detail: path,
+	}
 }

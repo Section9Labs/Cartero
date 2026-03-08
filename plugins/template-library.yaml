@@ -1,0 +1,12 @@
+schema_version: v1
+name: template-library
+version: 1.0.0
+kind: content-pack
+mode: local-only
+safe: true
+capabilities:
+    - campaign.template
+trust:
+    level: first-party
+    review_required: false
+description: Seeds a curated template pack for common training and rehearsal scenarios.

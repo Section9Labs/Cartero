@@ -3,3 +3,6 @@ coverage.out
 *.test
 *.out
 .DS_Store
+.cartero/
+exports/
+drafts/

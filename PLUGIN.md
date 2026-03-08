@@ -2,7 +2,7 @@
 
 Cartero discovers local plugin manifests from the `plugins/` directory.
 
-The current refactor keeps plugins metadata-only and safe by default. A plugin manifest describes an integration point without granting Cartero permission to execute remote actions.
+Plugin manifests describe trust boundaries and capabilities. First-party plugins in this repo also have corresponding Go command implementations that operate entirely on local workspace data by default.
 
 ## Manifest schema
 
@@ -60,7 +60,21 @@ description: Writes previews into a local review sink.
 
 ```bash
 cartero plugin list
+cartero plugin sync
 ```
+
+## Built-in plugins
+
+- `local-preview`: renders local previews and review output
+- `template-library`: seeds a curated local template pack into the embedded workspace store
+- `clone-importer`: converts reviewed `.eml` or raw message files into safe Cartero drafts
+- `analytics-export`: exports workspace analytics to JSON or CSV
+- `audience-sync`: imports local CSV segments into the embedded workspace store
+- `engagement-recorder`: stores non-sensitive engagement telemetry for reporting
+
+## Embedded workspace state
+
+First-party plugins use the embedded BoltDB workspace store at `.cartero/cartero.db`. This replaces the old MongoDB-dependent model with a portable local database that needs no separate service, credentials, or runtime management.
 
 ## Conformance workflow
 

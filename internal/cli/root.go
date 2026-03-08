@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/Section9Labs/Cartero/internal/app"
+	"github.com/Section9Labs/Cartero/internal/catalog"
 	"github.com/Section9Labs/Cartero/internal/doctor"
 	"github.com/Section9Labs/Cartero/internal/plugin"
 	"github.com/Section9Labs/Cartero/internal/ui"
@@ -40,9 +41,14 @@ func NewRootCmd(streams IOStreams, build version.Info) *cobra.Command {
 		Short: "Plan and validate security awareness exercises",
 		Long:  "Cartero provides a modern CLI for campaign planning, safe validation, plugin discovery, and release-friendly local workflows.",
 		Example: strings.Join([]string{
+			"cartero workspace init",
 			"cartero init",
 			"cartero preview -f configs/campaign.example.yaml",
 			"cartero validate -f configs/campaign.example.yaml",
+			"cartero template list",
+			"cartero audience import --segment finance-emea --csv audiences/finance-emea.csv",
+			"cartero import clone -f samples/reported.eml",
+			"cartero report export --format json",
 			"cartero doctor",
 			"cartero plugin list",
 			"cartero --root /path/to/workspace doctor",
@@ -65,8 +71,14 @@ func NewRootCmd(streams IOStreams, build version.Info) *cobra.Command {
 	})
 
 	rootCmd.AddCommand(newInitCmd(streams, opts))
+	rootCmd.AddCommand(newWorkspaceCmd(streams, opts))
 	rootCmd.AddCommand(newPreviewCmd(streams, opts))
 	rootCmd.AddCommand(newValidateCmd(streams, opts))
+	rootCmd.AddCommand(newTemplateCmd(streams, opts))
+	rootCmd.AddCommand(newAudienceCmd(streams, opts))
+	rootCmd.AddCommand(newImportCmd(streams, opts))
+	rootCmd.AddCommand(newReportCmd(streams, opts))
+	rootCmd.AddCommand(newEventCmd(streams, opts))
 	rootCmd.AddCommand(newDoctorCmd(streams, opts))
 	rootCmd.AddCommand(newPluginCmd(streams, opts))
 	rootCmd.AddCommand(newVersionCmd(streams, opts, build))
@@ -135,6 +147,9 @@ func newPreviewCmd(streams IOStreams, opts *rootOptions) *cobra.Command {
 			}
 			issues := app.ValidateCampaign(campaign)
 			score := app.ReadinessScore(issues)
+			if err := persistCampaignSnapshot(root, workspace.ResolveInputPath(root, file), campaign, score, issues, "preview"); err != nil {
+				return err
+			}
 
 			fmt.Fprintln(streams.Out, ui.NewRenderer(opts.plain).CampaignPreview(campaign, score, issues))
 			if app.HasErrors(issues) {
@@ -173,6 +188,10 @@ func newValidateCmd(streams IOStreams, opts *rootOptions) *cobra.Command {
 				return err
 			}
 			issues := app.ValidateCampaign(campaign)
+			score := app.ReadinessScore(issues)
+			if err := persistCampaignSnapshot(root, workspace.ResolveInputPath(root, file), campaign, score, issues, "validate"); err != nil {
+				return err
+			}
 			fmt.Fprintln(streams.Out, ui.NewRenderer(opts.plain).Validation(issues))
 			if app.HasErrors(issues) {
 				return errors.New("validation failed")
@@ -234,6 +253,34 @@ func newPluginCmd(streams IOStreams, opts *rootOptions) *cobra.Command {
 				return err
 			}
 			fmt.Fprintln(streams.Out, ui.NewRenderer(opts.plain).Plugins(discovery.Manifests, discovery.Warnings))
+			return nil
+		},
+	})
+	cmd.AddCommand(&cobra.Command{
+		Use:   "sync",
+		Short: "Sync built-in plugin manifests",
+		Long:  "Write the built-in first-party plugin manifests into the resolved workspace and seed template content when needed.",
+		Example: strings.Join([]string{
+			"cartero plugin sync",
+			"cartero --root /path/to/workspace plugin sync",
+		}, "\n"),
+		RunE: func(_ *cobra.Command, _ []string) error {
+			root, err := resolveRoot(opts.root)
+			if err != nil {
+				return err
+			}
+			s, err := prepareWorkspaceStore(root)
+			if err != nil {
+				return err
+			}
+			defer s.Close()
+
+			stats, err := s.Stats()
+			if err != nil {
+				return err
+			}
+
+			fmt.Fprintln(streams.Out, ui.NewRenderer(opts.plain).WorkspaceInit(root, stats.DatabasePath, len(catalog.BuiltinManifests()), stats.TemplateCount))
 			return nil
 		},
 	})
