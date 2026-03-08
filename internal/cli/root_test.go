@@ -77,6 +77,7 @@ func TestDoctorResolvesRootFromSubdirectory(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Getwd() error = %v", err)
 	}
+	repoRoot := filepath.Clean(filepath.Join(cwd, "..", ".."))
 	originalWD, err := os.Getwd()
 	if err != nil {
 		t.Fatalf("Getwd() error = %v", err)
@@ -95,7 +96,7 @@ func TestDoctorResolvesRootFromSubdirectory(t *testing.T) {
 		t.Fatalf("Execute() error = %v\noutput=%s", err, out.String())
 	}
 
-	if !strings.Contains(out.String(), "Root: ") || !strings.Contains(out.String(), filepath.Join("Section9Labs", "Cartero")) {
+	if !strings.Contains(out.String(), "Root: "+repoRoot) {
 		t.Fatalf("expected resolved project root in output, got %s", out.String())
 	}
 }
