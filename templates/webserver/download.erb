@@ -1,9 +1,0 @@
-# encoding: utf-8
-# This is very simple step that can be added when clonning.
-# But hey! still adding it to automate things for the lazy ;)
-class <%= self.webserver %> < Sinatra::Base
-  get "<%= self.request_path || "/download" %>" do
-  process_info
-  return send_file(File.expand_path(<%= self.payload %>), :disposition => :attachment)
-  end
-end

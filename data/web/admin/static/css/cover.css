@@ -1,8 +1,0 @@
-/* Move down content because we have a fixed navbar that is 50px tall */
-body {
-  padding-top: 50px;
-  padding-bottom: 20px;
-  color: #333;
-  text-shadow: 0 1px 3px rgba(0,0,0,.2);
-}
-

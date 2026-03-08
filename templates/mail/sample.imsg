@@ -1,3 +1,0 @@
-Hi <%= self[:name] %> <%= self[:last] %>,
-You should really check this site out, It has great discounts and freebies.
-http://192.168.1.216:8080/click?key=<%= self[:payload] %>

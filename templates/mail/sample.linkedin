@@ -1,6 +1,0 @@
-Hi <%= self[:name] %> <%= self[:last] %>,
-Given your current position as <%= self[:title] %> we found that this might be of interested to you. This message is an automated Cartero attack. For the full messages please display it securely on http://192.168.1.216:8080/click?key=<%= self[:payload] %>
-
-Cheers, 
-
-Cartero

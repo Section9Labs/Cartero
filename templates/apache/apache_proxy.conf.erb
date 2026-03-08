@@ -1,9 +1,0 @@
-<VirtualHost *:80>
-  ServerName <%= self[:url].split("//")[-1] + ".editme.com" %>
-  DocumentRoot /var/www/html/
-
-  ProxyPass / http://127.0.0.1:8080/
-  ProxyPassReverse / http://127.0.0.1:8080/
-
-</VirtualHost>
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
