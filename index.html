@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cartero | Local-first operator platform</title>
+  <meta name="description" content="Cartero is a modern Go operator platform for local campaign planning, admin review, safe testing pages, plugin-driven content, findings correlation, and legacy migration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="site-header">
+    <a class="brand" href="#top">
+      <span class="brand-mark">C</span>
+      <span class="brand-copy">
+        <strong>Cartero</strong>
+        <small>Go rewrite</small>
+      </span>
+    </a>
+    <nav class="site-nav">
+      <a href="#platform">Platform</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#commands">Commands</a>
+      <a href="#migration">Migration</a>
+    </nav>
+    <a class="button button-ghost" href="https://github.com/Section9Labs/Cartero">Repository</a>
+  </header>
+
+  <main id="top">
+    <section class="hero reveal">
+      <div class="hero-copy">
+        <div class="eyebrow">Section 9 Labs</div>
+        <h1>Cartero, rebuilt for the modern operator.</h1>
+        <p class="lede">
+          The old Ruby and MongoDB era is gone. Cartero now runs as a Go-first, local-first platform with an embedded SQLite workspace, a built-in admin UI, safe testing routes, plugin-driven content, findings correlation, and one-way legacy migration.
+        </p>
+        <div class="hero-actions">
+          <a class="button" href="https://github.com/Section9Labs/Cartero">View on GitHub</a>
+          <a class="button button-ghost" href="https://github.com/Section9Labs/Cartero/blob/master/README.md">Read the docs</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <div class="panel-kicker">Current surface</div>
+        <div class="terminal">
+          <div class="terminal-bar">
+            <span></span><span></span><span></span>
+          </div>
+          <pre><code>$ cartero workspace init
+$ cartero serve --addr 127.0.0.1:8080
+$ cartero preview -f campaign.yaml
+$ cartero finding import --file scans/nuclei.jsonl
+$ cartero migrate mongo-export --path legacy-export</code></pre>
+        </div>
+        <div class="signal-grid">
+          <article>
+            <strong data-count="0" data-target="0">0</strong>
+            <span>external database services</span>
+          </article>
+          <article>
+            <strong data-count="0" data-target="6">0</strong>
+            <span>first-party plugins</span>
+          </article>
+          <article>
+            <strong data-count="0" data-target="4">0</strong>
+            <span>finding import formats</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="platform" class="band band-light reveal">
+      <div class="section-head">
+        <div class="eyebrow">Platform shift</div>
+        <h2>Local-first by design.</h2>
+      </div>
+      <div class="platform-grid">
+        <article class="platform-card">
+          <div class="platform-index">01</div>
+          <h3>Single binary runtime</h3>
+          <p>Go CLI, Cobra commands, Lip Gloss operator output, and a local admin surface exposed through <code>cartero serve</code>.</p>
+        </article>
+        <article class="platform-card">
+          <div class="platform-index">02</div>
+          <h3>Embedded SQLite workspace</h3>
+          <p>Templates, audiences, imports, campaigns, events, and findings all live in <code>.cartero/cartero.sqlite</code> with no extra service to provision.</p>
+        </article>
+        <article class="platform-card">
+          <div class="platform-index">03</div>
+          <h3>Operator admin UI</h3>
+          <p>Templates, audiences, campaign history, imported findings, reviewed messages, and safe testing routes are available from the same local workspace.</p>
+        </article>
+        <article class="platform-card">
+          <div class="platform-index">04</div>
+          <h3>Plugin-first content model</h3>
+          <p>Template library, clone importer, audience sync, analytics export, engagement recorder, and manifest validation all ship as first-party plugins.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="workflow" class="band band-dark reveal">
+      <div class="section-head">
+        <div class="eyebrow">Operator workflow</div>
+        <h2>From workspace bootstrap to correlated review.</h2>
+      </div>
+      <div class="workflow">
+        <article class="workflow-step">
+          <span class="step-tag">Bootstrap</span>
+          <h3>Initialize the workspace</h3>
+          <p>Seed the local template catalog, plugin manifests, and SQLite workspace with a single command.</p>
+          <pre><code>cartero workspace init</code></pre>
+        </article>
+        <article class="workflow-step">
+          <span class="step-tag">Operate</span>
+          <h3>Run the local control room</h3>
+          <p>Launch the admin UI to inspect templates, audiences, campaigns, events, findings, and reviewed imports.</p>
+          <pre><code>cartero serve --addr 127.0.0.1:8080</code></pre>
+        </article>
+        <article class="workflow-step">
+          <span class="step-tag">Correlate</span>
+          <h3>Bring in external signals</h3>
+          <p>Normalize CSV, JSON, SARIF, and JSONL findings into the same workspace used for operator review and export.</p>
+          <pre><code>cartero finding import --file scans/nuclei.jsonl --source nightly-nuclei</code></pre>
+        </article>
+        <article class="workflow-step">
+          <span class="step-tag">Review</span>
+          <h3>Keep history together</h3>
+          <p>Preview and validation snapshots, event telemetry, imports, findings, and exports all stay attached to the same local state.</p>
+          <pre><code>cartero report export --format json</code></pre>
+        </article>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">GO CLI / SQLITE / LOCAL ADMIN / SAFE TESTING PAGES / FINDINGS IMPORT / LEGACY MIGRATION / GO CLI / SQLITE / LOCAL ADMIN / SAFE TESTING PAGES / FINDINGS IMPORT / LEGACY MIGRATION</div>
+      </div>
+    </section>
+
+    <section id="commands" class="band band-paper reveal">
+      <div class="section-head">
+        <div class="eyebrow">Command surface</div>
+        <h2>Built for local iteration and repeatable runs.</h2>
+      </div>
+      <div class="command-layout">
+        <div class="command-copy">
+          <p>
+            Cartero now exposes a coherent operator surface: workspace bootstrap, preview and validation, template browsing, audience import, reviewed message cloning, findings import, legacy migration, event recording, analytics export, and the local admin UI.
+          </p>
+          <p>
+            The same workspace is shared by the CLI and the admin server, which means a preview written from the terminal is visible in the dashboard immediately, and events recorded through a testing route show up in export output without extra plumbing.
+          </p>
+        </div>
+        <div class="command-stack">
+          <article class="command-card">
+            <span class="command-label">Plan</span>
+            <code>cartero preview -f campaign.yaml</code>
+            <p>Persist campaign snapshots while rendering readiness checks.</p>
+          </article>
+          <article class="command-card">
+            <span class="command-label">Admin</span>
+            <code>cartero serve</code>
+            <p>Run the local dashboard and safe testing routes.</p>
+          </article>
+          <article class="command-card">
+            <span class="command-label">Findings</span>
+            <code>cartero finding list --tool nuclei</code>
+            <p>Inspect normalized scanner output in the same workspace.</p>
+          </article>
+          <article class="command-card">
+            <span class="command-label">Legacy</span>
+            <code>cartero migrate mongo-export --path legacy-export</code>
+            <p>Bring forward old exports without reintroducing MongoDB.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="migration" class="band band-accent reveal">
+      <div class="section-head">
+        <div class="eyebrow">Migration path</div>
+        <h2>Modern runtime, preserved history.</h2>
+      </div>
+      <div class="migration-grid">
+        <article>
+          <h3>Legacy Bolt workspaces</h3>
+          <p>Old embedded Bolt state is imported automatically into SQLite the first time the workspace is opened.</p>
+        </article>
+        <article>
+          <h3>Legacy Mongo exports</h3>
+          <p>People, hit, and credential export files can be imported into the current workspace through a one-way migration command.</p>
+        </article>
+        <article>
+          <h3>Redacted carry-forward</h3>
+          <p>Legacy credential artifacts are converted into redacted findings so review value is preserved without dragging raw submitted values forward into the new platform.</p>
+        </article>
+      </div>
+      <div class="cta-strip">
+        <a class="button" href="https://github.com/Section9Labs/Cartero/pulls">Open pull requests</a>
+        <a class="button button-ghost" href="https://github.com/Section9Labs/Cartero/issues">Track roadmap</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Cartero is maintained in the open at <a href="https://github.com/Section9Labs/Cartero">github.com/Section9Labs/Cartero</a>.</p>
+    <p class="footer-meta">GitHub Pages source: <code>gh-pages</code> branch.</p>
+  </footer>
+
+  <script src="assets/site.js"></script>
+</body>
+</html>
