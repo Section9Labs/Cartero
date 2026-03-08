@@ -1,0 +1,12 @@
+schema_version: v1
+name: engagement-recorder
+version: 1.0.0
+kind: integration
+mode: operator-review
+safe: true
+capabilities:
+    - events.ingest
+trust:
+    level: first-party
+    review_required: false
+description: Records engagement events in the embedded workspace store for reporting.

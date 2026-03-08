@@ -1,0 +1,12 @@
+schema_version: v1
+name: analytics-export
+version: 1.0.0
+kind: exporter
+mode: local-only
+safe: true
+capabilities:
+    - results.export
+trust:
+    level: first-party
+    review_required: false
+description: Exports workspace analytics and readiness snapshots to JSON or CSV.

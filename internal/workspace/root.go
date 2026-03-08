@@ -7,6 +7,8 @@ import (
 )
 
 var rootMarkers = []string{
+	filepath.Join(".cartero", "cartero.sqlite"),
+	filepath.Join(".cartero", "cartero.db"),
 	"go.mod",
 	".goreleaser.yaml",
 	filepath.Join("configs", "campaign.example.yaml"),

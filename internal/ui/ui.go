@@ -7,6 +7,7 @@ import (
 	"github.com/Section9Labs/Cartero/internal/app"
 	"github.com/Section9Labs/Cartero/internal/doctor"
 	"github.com/Section9Labs/Cartero/internal/plugin"
+	"github.com/Section9Labs/Cartero/internal/store"
 	"github.com/charmbracelet/lipgloss"
 )
 
@@ -216,6 +217,181 @@ func (r Renderer) Init(path string) string {
 		"starter campaign written",
 		kv("Path", path),
 	})
+}
+
+func (r Renderer) WorkspaceInit(root, database string, manifestCount, templateCount int) string {
+	return strings.Join([]string{
+		r.banner("Workspace", "Embedded workspace initialized"),
+		r.block("State", []string{
+			kv("Root", root),
+			kv("Database", database),
+			kv("Plugin manifests", fmt.Sprintf("%d", manifestCount)),
+			kv("Seeded templates", fmt.Sprintf("%d", templateCount)),
+		}),
+	}, "\n\n")
+}
+
+func (r Renderer) WorkspaceStatus(root string, stats store.WorkspaceStats) string {
+	return strings.Join([]string{
+		r.banner("Workspace", "Embedded workspace status"),
+		r.block("State", []string{
+			kv("Root", root),
+			kv("Database", stats.DatabasePath),
+			kv("Templates", fmt.Sprintf("%d", stats.TemplateCount)),
+			kv("Audience members", fmt.Sprintf("%d", stats.AudienceCount)),
+			kv("Segments", fmt.Sprintf("%d", stats.SegmentCount)),
+			kv("Imports", fmt.Sprintf("%d", stats.ImportCount)),
+			kv("Campaign snapshots", fmt.Sprintf("%d", stats.CampaignCount)),
+			kv("Events", fmt.Sprintf("%d", stats.EventCount)),
+			kv("Findings", fmt.Sprintf("%d", stats.FindingCount)),
+		}),
+	}, "\n\n")
+}
+
+func (r Renderer) Templates(templates []store.Template) string {
+	lines := make([]string, 0, len(templates))
+	for _, template := range templates {
+		lines = append(lines, fmt.Sprintf("%s | locale=%s | department=%s | scenario=%s | channels=%s", template.Slug, template.Locale, template.Department, template.Scenario, strings.Join(template.Channels, ",")))
+		lines = append(lines, "  "+template.Subject)
+	}
+	if len(lines) == 0 {
+		lines = append(lines, "No templates matched the current filter")
+	}
+
+	return strings.Join([]string{
+		r.banner("Templates", "Template-library content pack"),
+		r.block("Catalog", lines),
+	}, "\n\n")
+}
+
+func (r Renderer) TemplateDetail(template store.Template) string {
+	return strings.Join([]string{
+		r.banner(template.Name, "Template detail"),
+		r.block("Metadata", []string{
+			kv("Slug", template.Slug),
+			kv("Locale", template.Locale),
+			kv("Department", template.Department),
+			kv("Scenario", template.Scenario),
+			kv("Channels", strings.Join(template.Channels, ",")),
+		}),
+		r.block("Content", []string{
+			kv("Subject", template.Subject),
+			"Body: " + emptyDefault(template.Body),
+			"Landing: " + emptyDefault(template.LandingPage),
+		}),
+	}, "\n\n")
+}
+
+func (r Renderer) AudienceImport(result store.AudienceImportResult) string {
+	return r.block("Audience Import", []string{
+		kv("Segment", result.Segment),
+		kv("Created", fmt.Sprintf("%d", result.Created)),
+		kv("Updated", fmt.Sprintf("%d", result.Updated)),
+	})
+}
+
+func (r Renderer) AudienceMembers(members []store.AudienceMember) string {
+	lines := make([]string, 0, len(members))
+	for _, member := range members {
+		lines = append(lines, fmt.Sprintf("%s | segment=%s | department=%s | title=%s", member.Email, member.Segment, emptyDefault(member.Department), emptyDefault(member.Title)))
+	}
+	if len(lines) == 0 {
+		lines = append(lines, "No audience members found")
+	}
+
+	return strings.Join([]string{
+		r.banner("Audience", "Embedded audience segments"),
+		r.block("Members", lines),
+	}, "\n\n")
+}
+
+func (r Renderer) CloneImport(sourcePath, subject, target string, readiness int) string {
+	return strings.Join([]string{
+		r.banner("Clone Import", "Reviewed message converted into a campaign draft"),
+		r.block("Draft", []string{
+			kv("Source", sourcePath),
+			kv("Subject", subject),
+			kv("Output", target),
+			kv("Readiness", fmt.Sprintf("%d/100", readiness)),
+		}),
+	}, "\n\n")
+}
+
+func (r Renderer) ReportExport(path, format string, stats store.WorkspaceStats) string {
+	return strings.Join([]string{
+		r.banner("Report", "Workspace analytics exported"),
+		r.block("Export", []string{
+			kv("Path", path),
+			kv("Format", format),
+			kv("Campaign snapshots", fmt.Sprintf("%d", stats.CampaignCount)),
+			kv("Audience members", fmt.Sprintf("%d", stats.AudienceCount)),
+			kv("Events", fmt.Sprintf("%d", stats.EventCount)),
+			kv("Findings", fmt.Sprintf("%d", stats.FindingCount)),
+		}),
+	}, "\n\n")
+}
+
+func (r Renderer) EventRecorded(event store.Event) string {
+	return r.block("Event", []string{
+		kv("Campaign", event.CampaignName),
+		kv("Audience", event.AudienceEmail),
+		kv("Type", event.Type),
+		kv("Source", event.Source),
+	})
+}
+
+func (r Renderer) Events(events []store.Event) string {
+	lines := make([]string, 0, len(events))
+	for _, event := range events {
+		lines = append(lines, fmt.Sprintf("%s | type=%s | email=%s | source=%s", event.CampaignName, event.Type, event.AudienceEmail, event.Source))
+	}
+	if len(lines) == 0 {
+		lines = append(lines, "No engagement events recorded")
+	}
+
+	return strings.Join([]string{
+		r.banner("Events", "Recorded engagement telemetry"),
+		r.block("Telemetry", lines),
+	}, "\n\n")
+}
+
+func (r Renderer) FindingImport(path, source, tool string, result store.FindingImportResult) string {
+	return strings.Join([]string{
+		r.banner("Findings", "External findings imported into the workspace"),
+		r.block("Import", []string{
+			kv("Path", path),
+			kv("Source", source),
+			kv("Tool", tool),
+			kv("Created", fmt.Sprintf("%d", result.Created)),
+			kv("Updated", fmt.Sprintf("%d", result.Updated)),
+		}),
+	}, "\n\n")
+}
+
+func (r Renderer) Findings(findings []store.Finding) string {
+	lines := make([]string, 0, len(findings))
+	for _, finding := range findings {
+		lines = append(lines, fmt.Sprintf("%s | tool=%s | severity=%s | target=%s", finding.Rule, finding.Tool, finding.Severity, finding.Target))
+		lines = append(lines, "  "+finding.Summary)
+	}
+	if len(lines) == 0 {
+		lines = append(lines, "No findings recorded")
+	}
+
+	return strings.Join([]string{
+		r.banner("Findings", "Imported scan and analysis signals"),
+		r.block("Registry", lines),
+	}, "\n\n")
+}
+
+func (r Renderer) MigrationReport(path string, report string) string {
+	return strings.Join([]string{
+		r.banner("Migration", "Legacy data import complete"),
+		r.block("Result", []string{
+			kv("Path", path),
+			report,
+		}),
+	}, "\n\n")
 }
 
 func (r Renderer) banner(title, subtitle string) string {

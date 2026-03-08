@@ -5,8 +5,8 @@ kind: renderer
 mode: local-only
 safe: true
 capabilities:
-  - preview.render
+    - preview.render
 trust:
-  level: first-party
-  review_required: false
-description: Writes preview data into a local review sink for operator approval.
+    level: first-party
+    review_required: false
+description: Writes previews into a local review sink for operator approval.
