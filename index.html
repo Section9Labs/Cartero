@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cartero | Local-first operator platform</title>
-  <meta name="description" content="Cartero is a modern Go operator platform for local campaign planning, admin review, safe testing pages, plugin-driven content, findings correlation, and legacy migration.">
+  <title>Cartero | Operator deck for the modern local-first workflow</title>
+  <meta name="description" content="Cartero is a local-first Go operator platform with an embedded SQLite workspace, browser-based operator deck, structured JSON API, delivery planning, findings correlation, and verified migration flows.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,13 +17,14 @@
       <span class="brand-mark">C</span>
       <span class="brand-copy">
         <strong>Cartero</strong>
-        <small>Go rewrite</small>
+        <small>Operator deck era</small>
       </span>
     </a>
     <nav class="site-nav">
-      <a href="#platform">Platform</a>
+      <a href="#surface">Surface</a>
       <a href="#workflow">Workflow</a>
-      <a href="#commands">Commands</a>
+      <a href="#api">API</a>
+      <a href="#verify">Verify</a>
       <a href="#migration">Migration</a>
     </nav>
     <a class="button button-ghost" href="https://github.com/Section9Labs/Cartero">Repository</a>
@@ -32,14 +33,14 @@
   <main id="top">
     <section class="hero reveal">
       <div class="hero-copy">
-        <div class="eyebrow">Section 9 Labs</div>
-        <h1>Cartero, rebuilt for the modern operator.</h1>
+        <div class="eyebrow">Section 9 Labs / GitHub Pages</div>
+        <h1>Cartero now has an operator deck, not just a rewrite.</h1>
         <p class="lede">
-          The old Ruby and MongoDB era is gone. Cartero now runs as a Go-first, local-first platform with an embedded SQLite workspace, a built-in admin UI, safe testing routes, plugin-driven content, findings correlation, and one-way legacy migration.
+          The platform has moved beyond the first Go migration. Cartero now ships a write-capable local admin surface, stable JSON output across the CLI, delivery profiles, launch schedules, richer findings correlation, a deeper first-party plugin catalog, and stronger end-to-end verification.
         </p>
         <div class="hero-actions">
           <a class="button" href="https://github.com/Section9Labs/Cartero">View on GitHub</a>
-          <a class="button button-ghost" href="https://github.com/Section9Labs/Cartero/blob/master/README.md">Read the docs</a>
+          <a class="button button-ghost" href="https://github.com/Section9Labs/Cartero/blob/master/README.md">Read the README</a>
         </div>
       </div>
 
@@ -49,20 +50,25 @@
           <div class="terminal-bar">
             <span></span><span></span><span></span>
           </div>
-          <pre><code>$ cartero workspace init
-$ cartero serve --addr 127.0.0.1:8080
-$ cartero preview -f campaign.yaml
-$ cartero finding import --file scans/nuclei.jsonl
-$ cartero migrate mongo-export --path legacy-export</code></pre>
+          <pre><code>$ cartero serve --addr 127.0.0.1:8080
+$ open /ops
+$ cartero --json workspace status
+$ cartero profile create --name dry-run-preview ...
+$ cartero schedule create --name q2-finance ...
+$ cartero finding import --file scans/nuclei.jsonl</code></pre>
         </div>
         <div class="signal-grid">
           <article>
             <strong data-count="0" data-target="0">0</strong>
-            <span>external database services</span>
+            <span>runtime services to provision</span>
           </article>
           <article>
-            <strong data-count="0" data-target="6">0</strong>
-            <span>first-party plugins</span>
+            <strong data-count="0" data-target="9">0</strong>
+            <span>first-party plugin manifests</span>
+          </article>
+          <article>
+            <strong data-count="0" data-target="10">0</strong>
+            <span>seeded template scenarios</span>
           </article>
           <article>
             <strong data-count="0" data-target="4">0</strong>
@@ -72,31 +78,41 @@ $ cartero migrate mongo-export --path legacy-export</code></pre>
       </div>
     </section>
 
-    <section id="platform" class="band band-light reveal">
+    <section id="surface" class="band band-light reveal">
       <div class="section-head">
-        <div class="eyebrow">Platform shift</div>
-        <h2>Local-first by design.</h2>
+        <div class="eyebrow">Product surface</div>
+        <h2>One workspace, three real front doors.</h2>
       </div>
-      <div class="platform-grid">
+      <div class="surface-grid">
         <article class="platform-card">
           <div class="platform-index">01</div>
-          <h3>Single binary runtime</h3>
-          <p>Go CLI, Cobra commands, Lip Gloss operator output, and a local admin surface exposed through <code>cartero serve</code>.</p>
+          <h3>CLI for repeatable runs</h3>
+          <p>Preview, validate, import, migrate, export, planning, and plugin inspection all stay scriptable from the terminal.</p>
         </article>
         <article class="platform-card">
           <div class="platform-index">02</div>
-          <h3>Embedded SQLite workspace</h3>
-          <p>Templates, audiences, imports, campaigns, events, and findings all live in <code>.cartero/cartero.sqlite</code> with no extra service to provision.</p>
+          <h3>Browser-based operator deck</h3>
+          <p><code>cartero serve</code> now exposes a write-capable deck at <code>/ops</code> with audience import, findings import, clone import, report export, and legacy migration.</p>
         </article>
         <article class="platform-card">
           <div class="platform-index">03</div>
-          <h3>Operator admin UI</h3>
-          <p>Templates, audiences, campaign history, imported findings, reviewed messages, and safe testing routes are available from the same local workspace.</p>
+          <h3>Stable JSON API contract</h3>
+          <p>The CLI gained <code>--json</code>, and the same workspace data is exposed under <code>/api/...</code> for dashboards, local tooling, and CI glue.</p>
         </article>
         <article class="platform-card">
           <div class="platform-index">04</div>
-          <h3>Plugin-first content model</h3>
-          <p>Template library, clone importer, audience sync, analytics export, engagement recorder, and manifest validation all ship as first-party plugins.</p>
+          <h3>Embedded planning layer</h3>
+          <p>Delivery profiles and launch schedules now live inside SQLite next to campaign snapshots, events, imports, and findings.</p>
+        </article>
+        <article class="platform-card">
+          <div class="platform-index">05</div>
+          <h3>Correlated findings model</h3>
+          <p>Imported scanner results are deduplicated, categorized, status-tracked, linked to campaigns, and exported with the rest of the workspace.</p>
+        </article>
+        <article class="platform-card">
+          <div class="platform-index">06</div>
+          <h3>Portable local runtime</h3>
+          <p>Everything still centers on <code>.cartero/cartero.sqlite</code>. No MongoDB, no daemon, and no extra service choreography.</p>
         </article>
       </div>
     </section>
@@ -104,79 +120,166 @@ $ cartero migrate mongo-export --path legacy-export</code></pre>
     <section id="workflow" class="band band-dark reveal">
       <div class="section-head">
         <div class="eyebrow">Operator workflow</div>
-        <h2>From workspace bootstrap to correlated review.</h2>
+        <h2>Plan, operate, correlate, and verify from the same local state.</h2>
       </div>
       <div class="workflow">
         <article class="workflow-step">
           <span class="step-tag">Bootstrap</span>
-          <h3>Initialize the workspace</h3>
-          <p>Seed the local template catalog, plugin manifests, and SQLite workspace with a single command.</p>
+          <h3>Seed the workspace</h3>
+          <p>Initialize SQLite, sync plugin manifests, seed template content, and prepare default planning profiles.</p>
           <pre><code>cartero workspace init</code></pre>
         </article>
         <article class="workflow-step">
           <span class="step-tag">Operate</span>
-          <h3>Run the local control room</h3>
-          <p>Launch the admin UI to inspect templates, audiences, campaigns, events, findings, and reviewed imports.</p>
+          <h3>Open the deck</h3>
+          <p>Launch the local admin surface and use the browser to import audiences, normalize findings, create delivery profiles, and schedule launches.</p>
           <pre><code>cartero serve --addr 127.0.0.1:8080</code></pre>
         </article>
         <article class="workflow-step">
           <span class="step-tag">Correlate</span>
           <h3>Bring in external signals</h3>
-          <p>Normalize CSV, JSON, SARIF, and JSONL findings into the same workspace used for operator review and export.</p>
+          <p>CSV, JSON, JSONL, and SARIF imports land in the same workspace used for campaign history, telemetry, and exports.</p>
           <pre><code>cartero finding import --file scans/nuclei.jsonl --source nightly-nuclei</code></pre>
         </article>
         <article class="workflow-step">
-          <span class="step-tag">Review</span>
-          <h3>Keep history together</h3>
-          <p>Preview and validation snapshots, event telemetry, imports, findings, and exports all stay attached to the same local state.</p>
-          <pre><code>cartero report export --format json</code></pre>
+          <span class="step-tag">Plan</span>
+          <h3>Attach delivery intent</h3>
+          <p>Define reusable profiles, connect them to schedules, and carry launch planning forward as workspace data instead of external notes.</p>
+          <pre><code>cartero schedule create --name q2-finance --profile dry-run-preview ...</code></pre>
+        </article>
+        <article class="workflow-step">
+          <span class="step-tag">Verify</span>
+          <h3>Keep the contract testable</h3>
+          <p>Store tests, CLI JSON tests, HTTP flow tests, <code>go vet</code>, and smoke runs all now cover the expanded operator surface.</p>
+          <pre><code>go test ./...
+go vet ./...
+bash ./scripts/smoke.sh</code></pre>
         </article>
       </div>
       <div class="marquee" aria-hidden="true">
-        <div class="marquee-track">GO CLI / SQLITE / LOCAL ADMIN / SAFE TESTING PAGES / FINDINGS IMPORT / LEGACY MIGRATION / GO CLI / SQLITE / LOCAL ADMIN / SAFE TESTING PAGES / FINDINGS IMPORT / LEGACY MIGRATION</div>
+        <div class="marquee-track">OPERATOR DECK / JSON EVERYWHERE / DELIVERY PROFILES / LAUNCH SCHEDULES / FINDINGS CORRELATION / SQLITE WORKSPACE / OPERATOR DECK / JSON EVERYWHERE / DELIVERY PROFILES / LAUNCH SCHEDULES / FINDINGS CORRELATION / SQLITE WORKSPACE</div>
       </div>
     </section>
 
-    <section id="commands" class="band band-paper reveal">
+    <section id="api" class="band band-paper reveal">
       <div class="section-head">
-        <div class="eyebrow">Command surface</div>
-        <h2>Built for local iteration and repeatable runs.</h2>
+        <div class="eyebrow">Shared contract</div>
+        <h2>Same workspace, same model, different entry points.</h2>
       </div>
-      <div class="command-layout">
+      <div class="api-layout">
+        <article class="api-window">
+          <div class="panel-kicker">CLI and browser stay aligned</div>
+          <div class="route-grid">
+            <div class="command-card">
+              <span class="command-label">Terminal</span>
+              <code>cartero --json workspace status</code>
+              <p>Machine-readable state for scripts and CI.</p>
+            </div>
+            <div class="command-card">
+              <span class="command-label">Browser</span>
+              <code>/ops</code>
+              <p>Write-capable operator deck for local workflows.</p>
+            </div>
+            <div class="command-card">
+              <span class="command-label">HTTP</span>
+              <code>/api/workspace</code>
+              <p>Structured workspace stats, doctor output, and plugin discovery.</p>
+            </div>
+            <div class="command-card">
+              <span class="command-label">Planning</span>
+              <code>/api/profiles + /api/schedules</code>
+              <p>Portable launch metadata with no extra service layer.</p>
+            </div>
+          </div>
+        </article>
+        <article class="api-window api-window-dark">
+          <div class="panel-kicker">Expanded web surface</div>
+          <pre><code>{
+  "ok": true,
+  "action": "workspace.get",
+  "data": {
+    "stats": {
+      "template_count": 10,
+      "profile_count": 2,
+      "schedule_count": 1
+    },
+    "plugins": {
+      "manifests": 9
+    }
+  }
+}</code></pre>
+          <p class="table-note">The browser deck, CLI JSON output, and report exports now speak the same shape instead of forcing operators to scrape terminal text.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band band-light reveal">
+      <div class="section-head">
+        <div class="eyebrow">Plugin and content catalog</div>
+        <h2>More first-party packs, broader local coverage.</h2>
+      </div>
+      <div class="plugin-grid">
+        <article class="plugin-chip"><strong>local-preview</strong><span>preview.render</span></article>
+        <article class="plugin-chip"><strong>template-library</strong><span>campaign.template</span></article>
+        <article class="plugin-chip"><strong>clone-importer</strong><span>campaign.import</span></article>
+        <article class="plugin-chip"><strong>analytics-export</strong><span>results.export</span></article>
+        <article class="plugin-chip"><strong>audience-sync</strong><span>audience.sync</span></article>
+        <article class="plugin-chip"><strong>engagement-recorder</strong><span>events.ingest</span></article>
+        <article class="plugin-chip"><strong>findings-correlator</strong><span>findings.correlate</span></article>
+        <article class="plugin-chip"><strong>delivery-profiles</strong><span>delivery.profile</span></article>
+        <article class="plugin-chip"><strong>schedule-planner</strong><span>schedule.plan</span></article>
+      </div>
+      <div class="command-layout compact-layout">
         <div class="command-copy">
-          <p>
-            Cartero now exposes a coherent operator surface: workspace bootstrap, preview and validation, template browsing, audience import, reviewed message cloning, findings import, legacy migration, event recording, analytics export, and the local admin UI.
-          </p>
-          <p>
-            The same workspace is shared by the CLI and the admin server, which means a preview written from the terminal is visible in the dashboard immediately, and events recorded through a testing route show up in export output without extra plumbing.
-          </p>
+          <p>The built-in template pack is larger now, with more locales, departments, and scenarios. Delivery profiles are seeded alongside manifests, so the operator deck comes up with a usable planning baseline instead of an empty shell.</p>
         </div>
-        <div class="command-stack">
-          <article class="command-card">
-            <span class="command-label">Plan</span>
-            <code>cartero preview -f campaign.yaml</code>
-            <p>Persist campaign snapshots while rendering readiness checks.</p>
+        <div class="stat-tape">
+          <article>
+            <strong data-count="0" data-target="10">0</strong>
+            <span>seeded templates</span>
           </article>
-          <article class="command-card">
-            <span class="command-label">Admin</span>
-            <code>cartero serve</code>
-            <p>Run the local dashboard and safe testing routes.</p>
+          <article>
+            <strong data-count="0" data-target="2">0</strong>
+            <span>default delivery profiles</span>
           </article>
-          <article class="command-card">
-            <span class="command-label">Findings</span>
-            <code>cartero finding list --tool nuclei</code>
-            <p>Inspect normalized scanner output in the same workspace.</p>
-          </article>
-          <article class="command-card">
-            <span class="command-label">Legacy</span>
-            <code>cartero migrate mongo-export --path legacy-export</code>
-            <p>Bring forward old exports without reintroducing MongoDB.</p>
+          <article>
+            <strong data-count="0" data-target="3">0</strong>
+            <span>planning-aware surfaces</span>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="migration" class="band band-accent reveal">
+    <section id="verify" class="band band-accent reveal">
+      <div class="section-head">
+        <div class="eyebrow">Verification</div>
+        <h2>The bigger surface now has matching tests.</h2>
+      </div>
+      <div class="verify-grid">
+        <article class="verify-card">
+          <h3>Store coverage</h3>
+          <p>Profiles, schedules, deduplicated findings, and planning stats are asserted directly against the SQLite model.</p>
+        </article>
+        <article class="verify-card">
+          <h3>CLI JSON coverage</h3>
+          <p>Regression tests now cover structured success and failure output, including planning commands and validation failures.</p>
+        </article>
+        <article class="verify-card">
+          <h3>HTTP flow coverage</h3>
+          <p>The admin surface is exercised with browser-style request tests for the deck, uploads, profile creation, schedule creation, exports, and workspace API reads.</p>
+        </article>
+        <article class="verify-card">
+          <h3>Smoke path</h3>
+          <p>The smoke script now runs the new planning commands and JSON paths in addition to the older preview, import, and migration flows.</p>
+        </article>
+      </div>
+      <div class="cta-strip">
+        <a class="button" href="https://github.com/Section9Labs/Cartero/actions">View CI runs</a>
+        <a class="button button-ghost" href="https://github.com/Section9Labs/Cartero/blob/master/scripts/smoke.sh">Inspect smoke workflow</a>
+      </div>
+    </section>
+
+    <section id="migration" class="band band-light reveal">
       <div class="section-head">
         <div class="eyebrow">Migration path</div>
         <h2>Modern runtime, preserved history.</h2>
@@ -184,15 +287,15 @@ $ cartero migrate mongo-export --path legacy-export</code></pre>
       <div class="migration-grid">
         <article>
           <h3>Legacy Bolt workspaces</h3>
-          <p>Old embedded Bolt state is imported automatically into SQLite the first time the workspace is opened.</p>
+          <p>Old embedded Bolt state still imports automatically into SQLite the first time a workspace is opened.</p>
         </article>
         <article>
           <h3>Legacy Mongo exports</h3>
-          <p>People, hit, and credential export files can be imported into the current workspace through a one-way migration command.</p>
+          <p>People, hits, and credential export files can be brought forward through a one-way migration path and reviewed from the operator deck.</p>
         </article>
         <article>
           <h3>Redacted carry-forward</h3>
-          <p>Legacy credential artifacts are converted into redacted findings so review value is preserved without dragging raw submitted values forward into the new platform.</p>
+          <p>Historical credential artifacts are converted into redacted findings so review value survives without dragging raw values into the modern platform.</p>
         </article>
       </div>
       <div class="cta-strip">
