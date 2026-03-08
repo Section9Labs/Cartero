@@ -21,7 +21,7 @@ func TestWorkspaceInitSeedsDatabaseAndBuiltins(t *testing.T) {
 		t.Fatalf("Execute() error = %v\noutput=%s", err, out.String())
 	}
 
-	if _, err := os.Stat(filepath.Join(root, ".cartero", "cartero.db")); err != nil {
+	if _, err := os.Stat(filepath.Join(root, ".cartero", "cartero.sqlite")); err != nil {
 		t.Fatalf("expected database to exist: %v", err)
 	}
 	if _, err := os.Stat(filepath.Join(root, "plugins", "template-library.yaml")); err != nil {
@@ -120,5 +120,48 @@ func TestEventRecordAndList(t *testing.T) {
 	}
 	if !strings.Contains(out.String(), "Quarterly Drill") || !strings.Contains(out.String(), "reported") {
 		t.Fatalf("expected event output, got %s", out.String())
+	}
+}
+
+func TestFindingImportAndList(t *testing.T) {
+	root := t.TempDir()
+	mustWriteFile(t, filepath.Join(root, "scans", "nuclei.jsonl"), ""+
+		"{\"template-id\":\"open-redirect\",\"host\":\"https://example.com\",\"info\":{\"name\":\"Open Redirect\",\"severity\":\"medium\"}}\n")
+
+	var out bytes.Buffer
+	cmd := cli.NewRootCmd(cli.IOStreams{Out: &out, Err: &out}, version.BuildInfo())
+	cmd.SetArgs([]string{"--plain", "--root", root, "finding", "import", "--file", filepath.Join("scans", "nuclei.jsonl"), "--source", "nightly-nuclei"})
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v\noutput=%s", err, out.String())
+	}
+	if !strings.Contains(out.String(), "Created") {
+		t.Fatalf("expected finding import output, got %s", out.String())
+	}
+
+	out.Reset()
+	cmd = cli.NewRootCmd(cli.IOStreams{Out: &out, Err: &out}, version.BuildInfo())
+	cmd.SetArgs([]string{"--plain", "--root", root, "finding", "list", "--tool", "nuclei"})
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v\noutput=%s", err, out.String())
+	}
+	if !strings.Contains(out.String(), "open-redirect") {
+		t.Fatalf("expected imported finding output, got %s", out.String())
+	}
+}
+
+func TestMongoExportMigration(t *testing.T) {
+	root := t.TempDir()
+	mustWriteFile(t, filepath.Join(root, "legacy", "people.json"), `[{"email":"analyst@example.com"}]`)
+	mustWriteFile(t, filepath.Join(root, "legacy", "hits.json"), `[{"domain":"legacy.example.com","path":"/login"}]`)
+	mustWriteFile(t, filepath.Join(root, "legacy", "credentials.json"), `[{"domain":"legacy.example.com","path":"/login","username":"user","password":"secret"}]`)
+
+	var out bytes.Buffer
+	cmd := cli.NewRootCmd(cli.IOStreams{Out: &out, Err: &out}, version.BuildInfo())
+	cmd.SetArgs([]string{"--plain", "--root", root, "migrate", "mongo-export", "--path", filepath.Join("legacy")})
+	if err := cmd.Execute(); err != nil {
+		t.Fatalf("Execute() error = %v\noutput=%s", err, out.String())
+	}
+	if !strings.Contains(out.String(), "Legacy data import complete") && !strings.Contains(out.String(), "Files processed") {
+		t.Fatalf("expected migration output, got %s", out.String())
 	}
 }

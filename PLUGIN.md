@@ -74,7 +74,7 @@ cartero plugin sync
 
 ## Embedded workspace state
 
-First-party plugins use the embedded BoltDB workspace store at `.cartero/cartero.db`. This replaces the old MongoDB-dependent model with a portable local database that needs no separate service, credentials, or runtime management.
+First-party plugins use the embedded SQLite workspace store at `.cartero/cartero.sqlite`. This replaces the old MongoDB-dependent model with a portable local database that needs no separate service, credentials, or runtime management.
 
 ## Conformance workflow
 

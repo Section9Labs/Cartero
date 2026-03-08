@@ -243,6 +243,7 @@ func (r Renderer) WorkspaceStatus(root string, stats store.WorkspaceStats) strin
 			kv("Imports", fmt.Sprintf("%d", stats.ImportCount)),
 			kv("Campaign snapshots", fmt.Sprintf("%d", stats.CampaignCount)),
 			kv("Events", fmt.Sprintf("%d", stats.EventCount)),
+			kv("Findings", fmt.Sprintf("%d", stats.FindingCount)),
 		}),
 	}, "\n\n")
 }
@@ -325,6 +326,7 @@ func (r Renderer) ReportExport(path, format string, stats store.WorkspaceStats) 
 			kv("Campaign snapshots", fmt.Sprintf("%d", stats.CampaignCount)),
 			kv("Audience members", fmt.Sprintf("%d", stats.AudienceCount)),
 			kv("Events", fmt.Sprintf("%d", stats.EventCount)),
+			kv("Findings", fmt.Sprintf("%d", stats.FindingCount)),
 		}),
 	}, "\n\n")
 }
@@ -350,6 +352,45 @@ func (r Renderer) Events(events []store.Event) string {
 	return strings.Join([]string{
 		r.banner("Events", "Recorded engagement telemetry"),
 		r.block("Telemetry", lines),
+	}, "\n\n")
+}
+
+func (r Renderer) FindingImport(path, source, tool string, result store.FindingImportResult) string {
+	return strings.Join([]string{
+		r.banner("Findings", "External findings imported into the workspace"),
+		r.block("Import", []string{
+			kv("Path", path),
+			kv("Source", source),
+			kv("Tool", tool),
+			kv("Created", fmt.Sprintf("%d", result.Created)),
+			kv("Updated", fmt.Sprintf("%d", result.Updated)),
+		}),
+	}, "\n\n")
+}
+
+func (r Renderer) Findings(findings []store.Finding) string {
+	lines := make([]string, 0, len(findings))
+	for _, finding := range findings {
+		lines = append(lines, fmt.Sprintf("%s | tool=%s | severity=%s | target=%s", finding.Rule, finding.Tool, finding.Severity, finding.Target))
+		lines = append(lines, "  "+finding.Summary)
+	}
+	if len(lines) == 0 {
+		lines = append(lines, "No findings recorded")
+	}
+
+	return strings.Join([]string{
+		r.banner("Findings", "Imported scan and analysis signals"),
+		r.block("Registry", lines),
+	}, "\n\n")
+}
+
+func (r Renderer) MigrationReport(path string, report string) string {
+	return strings.Join([]string{
+		r.banner("Migration", "Legacy data import complete"),
+		r.block("Result", []string{
+			kv("Path", path),
+			report,
+		}),
 	}, "\n\n")
 }
 

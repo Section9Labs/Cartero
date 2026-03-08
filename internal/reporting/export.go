@@ -20,6 +20,7 @@ type Export struct {
 	Events      []store.EventSummary     `json:"events"`
 	Campaigns   []store.CampaignSnapshot `json:"campaigns"`
 	Imports     []store.ImportedMessage  `json:"imports"`
+	Findings    []store.Finding          `json:"findings"`
 }
 
 func Build(s *store.Store) (Export, error) {
@@ -43,6 +44,10 @@ func Build(s *store.Store) (Export, error) {
 	if err != nil {
 		return Export{}, err
 	}
+	findings, err := s.ListFindings(store.FindingFilter{})
+	if err != nil {
+		return Export{}, err
+	}
 
 	return Export{
 		GeneratedAt: time.Now().UTC().Format(time.RFC3339),
@@ -52,6 +57,7 @@ func Build(s *store.Store) (Export, error) {
 		Events:      events,
 		Campaigns:   campaigns,
 		Imports:     imports,
+		Findings:    findings,
 	}, nil
 }
 
@@ -86,6 +92,7 @@ func Write(path, format string, export Export) error {
 			{"metric", "imports", strconv.Itoa(export.Stats.ImportCount), ""},
 			{"metric", "campaigns", strconv.Itoa(export.Stats.CampaignCount), ""},
 			{"metric", "events", strconv.Itoa(export.Stats.EventCount), ""},
+			{"metric", "findings", strconv.Itoa(export.Stats.FindingCount), ""},
 		}
 		for _, segment := range export.Segments {
 			rows = append(rows, []string{"segment", segment.Segment, strconv.Itoa(segment.Members), ""})
@@ -98,6 +105,9 @@ func Write(path, format string, export Export) error {
 		}
 		for _, message := range export.Imports {
 			rows = append(rows, []string{"import", message.Subject, message.Sender, message.SourcePath})
+		}
+		for _, finding := range export.Findings {
+			rows = append(rows, []string{"finding", finding.Rule, finding.Severity, finding.Target})
 		}
 
 		if err := writer.WriteAll(rows); err != nil {

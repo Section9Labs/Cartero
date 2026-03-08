@@ -30,6 +30,25 @@ Please review the attached account changes before end of day.
 EOF
 ./dist/cartero --plain --root "$workspace" import clone -f "$workspace/reported.eml"
 ./dist/cartero --plain --root "$workspace" event record --campaign "Q2 Awareness Rehearsal" --email analyst@example.com --type reported
+
+cat > "$workspace/nuclei.jsonl" <<'EOF'
+{"template-id":"open-redirect","host":"https://example.com","info":{"name":"Open Redirect","severity":"medium"}}
+EOF
+./dist/cartero --plain --root "$workspace" finding import --file "$workspace/nuclei.jsonl" --source nightly-nuclei
+./dist/cartero --plain --root "$workspace" finding list --tool nuclei
+
+mkdir -p "$workspace/legacy"
+cat > "$workspace/legacy/people.json" <<'EOF'
+[{"email":"legacy@example.com"}]
+EOF
+cat > "$workspace/legacy/hits.json" <<'EOF'
+[{"domain":"legacy.example.com","path":"/login"}]
+EOF
+cat > "$workspace/legacy/credentials.json" <<'EOF'
+[{"domain":"legacy.example.com","path":"/login","username":"user","password":"secret"}]
+EOF
+./dist/cartero --plain --root "$workspace" migrate mongo-export --path "$workspace/legacy"
+
 ./dist/cartero --plain --root "$workspace" report export --format json
 ./dist/cartero --plain --root "$workspace" doctor
 ./dist/cartero --plain --root "$workspace" plugin list

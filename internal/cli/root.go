@@ -45,9 +45,12 @@ func NewRootCmd(streams IOStreams, build version.Info) *cobra.Command {
 			"cartero init",
 			"cartero preview -f configs/campaign.example.yaml",
 			"cartero validate -f configs/campaign.example.yaml",
+			"cartero serve --addr 127.0.0.1:8080",
 			"cartero template list",
 			"cartero audience import --segment finance-emea --csv audiences/finance-emea.csv",
 			"cartero import clone -f samples/reported.eml",
+			"cartero finding import --file scans/nuclei.jsonl --source nightly-nuclei",
+			"cartero migrate mongo-export --path legacy-export",
 			"cartero report export --format json",
 			"cartero doctor",
 			"cartero plugin list",
@@ -74,9 +77,12 @@ func NewRootCmd(streams IOStreams, build version.Info) *cobra.Command {
 	rootCmd.AddCommand(newWorkspaceCmd(streams, opts))
 	rootCmd.AddCommand(newPreviewCmd(streams, opts))
 	rootCmd.AddCommand(newValidateCmd(streams, opts))
+	rootCmd.AddCommand(newServeCmd(streams, opts))
 	rootCmd.AddCommand(newTemplateCmd(streams, opts))
 	rootCmd.AddCommand(newAudienceCmd(streams, opts))
 	rootCmd.AddCommand(newImportCmd(streams, opts))
+	rootCmd.AddCommand(newFindingCmd(streams, opts))
+	rootCmd.AddCommand(newMigrateCmd(streams, opts))
 	rootCmd.AddCommand(newReportCmd(streams, opts))
 	rootCmd.AddCommand(newEventCmd(streams, opts))
 	rootCmd.AddCommand(newDoctorCmd(streams, opts))
